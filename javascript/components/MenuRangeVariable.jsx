@@ -12,25 +12,25 @@ export default connect(() => ({}), actions)(({ config, name, setValue }) => {
 
   const onChangeValue = event => setValue({
     action: 'SET_CONFIG_VALUE',
-    value: event.currentTarget.value,
+    value: parseFloat(event.currentTarget.value),
     name
   })
 
   const onChangeAmplitude = event => setValue({
     action: 'SET_CONFIG_AMPLITUDE',
-    value: event.currentTarget.value,
+    value: parseFloat(event.currentTarget.value),
     name
   })
 
   const onChangePhase = event => setValue({
     action: 'SET_CONFIG_PHASE',
-    value: event.currentTarget.value,
+    value: parseFloat(event.currentTarget.value),
     name
   })
 
   const onChangeFrequency = event => setValue({
     action: 'SET_CONFIG_FREQUENCY',
-    value: event.currentTarget.value,
+    value: parseFloat(event.currentTarget.value),
     name
   })
 

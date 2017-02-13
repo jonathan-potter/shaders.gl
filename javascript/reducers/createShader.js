@@ -5,6 +5,8 @@ import createViewport from 'reducers/createViewport'
 
 import mapValues from 'lodash/mapValues'
 
+const { PI: pi, sin } = Math
+
 export default function (SHADER, DEFAULT_PROPERTIES) {
   return combineReducers({
     rangeSettings: combineReducers(mapValues(DEFAULT_PROPERTIES.rangeSettings, (value, name) => {
@@ -20,10 +22,16 @@ export default function (SHADER, DEFAULT_PROPERTIES) {
 }
 
 export const getShaderViewport = (state, shader) => state.shaders[shader].viewport
-export const getShaderConfig = (state, shader) => {
+export const getShaderConfig = (state, shader, time) => {
   return Object.assign(
     {},
-    mapValues(state.shaders[shader].rangeSettings, setting => setting.value),
+    mapValues(state.shaders[shader].rangeSettings, momentaryValue(time)),
     state.shaders[shader].selectSettings
   )
+}
+
+const momentaryValue = (time) => ({ amplitude, animated, frequency, phase, value }) => {
+  if (!animated) { return value }
+console.log(value + amplitude * sin(2 * pi * frequency + phase))
+  return value + amplitude * sin(2 * pi * frequency * time + phase)
 }

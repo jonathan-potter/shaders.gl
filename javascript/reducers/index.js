@@ -15,6 +15,6 @@ export default combineReducers({
 })
 
 export const getCurrentShader = (state) => state.currentShader
-export const getShaderConfig = (state, shader) => Shader.getShaderConfig(state, shader)
+export const getShaderConfig = (state, shader, time) => Shader.getShaderConfig(state, shader, time)
 export const getShaderViewport = (state, shader) => Shader.getShaderViewport(state, shader)
 export const getPinchStart = state => state.pinchStart

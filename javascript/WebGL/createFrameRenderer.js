@@ -16,7 +16,7 @@ export default ({ canvas, context, shader, program, store }) => function renderF
   const currentShader = getCurrentShader(state)
   if (shader === currentShader) {
     const { center, range, rotation } = getShaderViewport(state, currentShader)
-    const config            = getShaderConfig(state, currentShader)
+    const config = getShaderConfig(state, currentShader, time / 1000)
 
     if (config.speed) {
       time += parseFloat(config.speed)
