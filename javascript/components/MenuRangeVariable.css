@@ -9,12 +9,26 @@
   font-weight: 600;
 }
 
+.menu-range-variable__animate {
+  display: flex;
+  align-items: center;
+}
+
+.menu-range-variable__animate__label {
+  flex-basis: 28%;
+  padding-left: 20px;
+}
+
 .menu-range-variable ul {
   margin: 0;
 }
 
 .menu-item-range {
   display: flex;
+}
+
+.menu-item-range--disabled {
+  display: none;
 }
 
 .menu-item-range__label {

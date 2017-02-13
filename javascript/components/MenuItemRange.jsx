@@ -1,8 +1,9 @@
 import React from 'react'
+import cn from 'classnames'
 
-export default ({ min, max, name, onChange, value }) => {
+export default ({ disabled, min, max, name, onChange, value }) => {
   return (
-    <li className='menu-item-range'>
+    <li className={cn('menu-item-range', { 'menu-item-range--disabled': disabled })}>
       <div className='menu-item-range__label'>
         <label htmlFor={name}>{name}</label>
       </div>
