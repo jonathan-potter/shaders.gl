@@ -17,11 +17,11 @@ export default connect(mapStateToProps, actions)(
     ))
 
     return (
-      <li className='menu-item'>
-        <div className='menu-item-label left'>
+      <li className='menu-item-select'>
+        <div className='menu-item-select__label'>
           <label htmlFor={name}>{name}</label>
         </div>
-        <div className='menu-item-range left'>
+        <div className='menu-item-select__select'>
           <select
             className={`${name}-selector`}
             type='select'

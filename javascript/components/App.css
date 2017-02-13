@@ -2,7 +2,7 @@
   transition: 0.2s;
 }
 
-html, body, ul, li, menu, label, button {
+html, body, ul, li, menu, label, button, select, input {
   padding: 0;
   border: 0;
   margin: 0;
@@ -48,3 +48,6 @@ section > .container {
   height: 100%;
 }
 
+select {
+  border: 1px solid #ccc;
+}

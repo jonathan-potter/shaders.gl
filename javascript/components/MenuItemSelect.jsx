@@ -4,6 +4,8 @@ import * as actions from 'actions'
 import { getCurrentShader, getShaderConfig } from 'reducers'
 import map from 'lodash/map'
 
+import './MenuItemSelect.css'
+
 const mapStateToProps = (state) => ({
   config: getShaderConfig(state, getCurrentShader(state))
 })
@@ -16,11 +18,11 @@ export default connect(mapStateToProps, actions)(({ config, name, options, setCo
   ))
 
   return (
-    <li className='menu-item'>
-      <div className='menu-item-label left'>
+    <li className='menu-item menu-item-select'>
+      <div className='menu-item-select__label'>
         <label htmlFor={name}>{name}</label>
       </div>
-      <div className='menu-item-range left'>
+      <div className='menu-item-select__select'>
         <select
           className={`${name}-selector`}
           type='select'

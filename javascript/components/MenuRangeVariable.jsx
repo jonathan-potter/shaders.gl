@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import MenuItemRange from 'components/MenuItemRange'
 import * as actions from 'actions'
 
+import './MenuRangeVariable.css'
+
 const { PI: pi } = Math
 
 export default connect(() => ({}), actions)(({ config, name, setValue }) => {
@@ -34,12 +36,13 @@ export default connect(() => ({}), actions)(({ config, name, setValue }) => {
 
   /* eslint-disable no-multi-spaces */
   return (
-    <li className='menu-item'>
+    <li className='menu-item menu-range-variable'>
+      <div>{name}</div>
       <ul>
-        <MenuItemRange onChange={onChangeValue}     name={`${name}_value`}     value={value}     min={min} max={max} />
-        <MenuItemRange onChange={onChangeAmplitude} name={`${name}_amplitude`} value={amplitude} min={0}   max={(max - min) / 2} />
-        <MenuItemRange onChange={onChangePhase}     name={`${name}_phase`}     value={phase}     min={0}   max={2 * pi} />
-        <MenuItemRange onChange={onChangeFrequency} name={`${name}_frequency`} value={frequency} min={0}   max={1} />
+        <MenuItemRange onChange={onChangeValue}     name='value'     value={value}     min={min} max={max} />
+        <MenuItemRange onChange={onChangeAmplitude} name='amplitude' value={amplitude} min={0}   max={(max - min) / 2} />
+        <MenuItemRange onChange={onChangePhase}     name='phase'     value={phase}     min={0}   max={2 * pi} />
+        <MenuItemRange onChange={onChangeFrequency} name='frequency' value={frequency} min={0}   max={1} />
       </ul>
     </li>
   )
