@@ -12,18 +12,14 @@ import cn from 'classnames'
 
 import './menu.css'
 
-const mapStateToProps = (state) => {
-  const { currentShader, menuOpen } = state
-
-  return {
-    config: getShaderConfig(state, currentShader),
-    currentShader,
-    menuOpen
-  }
-}
+const mapStateToProps = ({ currentShader, menuOpen, shaders }) => ({
+  shaders,
+  currentShader,
+  menuOpen
+})
 
 export default connect(mapStateToProps, actions)(
-  ({ config, currentShader, menuOpen, resetShader, setValue, zoomOut, zoomToLocation }) => {
+  ({ config, currentShader, menuOpen, resetShader, shaders, zoomOut, zoomToLocation }) => {
     const { menuOrder: MENU_ORDER, controls: CONTROLS } = DEFAULT_MENU_CONFIG[currentShader]
 
     const controls = map(MENU_ORDER, (name) => {
@@ -31,7 +27,7 @@ export default connect(mapStateToProps, actions)(
 
       switch (type) {
         case 'range':
-          return <MenuRangeVariable key={name} name={name} config={config} setValue={setValue}/>
+          return <MenuRangeVariable key={name} name={name} config={shaders[currentShader].rangeSettings[name]} />
         case 'select':
           return <MenuItemSelect key={name} name={name} options={options} />
       }

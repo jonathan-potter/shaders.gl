@@ -1,10 +1,12 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import MenuItemRange from 'components/MenuItemRange'
+import * as actions from 'actions'
 
 const { PI: pi } = Math
 
-export default ({ config, name }) => {
-  const { amplitude, frequency, max, min, phase, setValue, value } = config
+export default connect(() => ({}), actions)(({ config, name, setValue }) => {
+  const { amplitude, frequency, max, min, phase, value } = config
 
   const onChangeValue = event => setValue({
     action: 'SET_CONFIG_VALUE',
@@ -18,13 +20,13 @@ export default ({ config, name }) => {
     name
   })
 
-  const onChangePhase= event => setValue({
+  const onChangePhase = event => setValue({
     action: 'SET_CONFIG_PHASE',
     value: event.currentTarget.value,
     name
   })
 
-  const onChangeFrequency= event => setValue({
+  const onChangeFrequency = event => setValue({
     action: 'SET_CONFIG_FREQUENCY',
     value: event.currentTarget.value,
     name
@@ -41,4 +43,4 @@ export default ({ config, name }) => {
       </ul>
     </li>
   )
-}
+})

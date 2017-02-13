@@ -14,10 +14,7 @@ export default ({ min, max, name, onChange, value }) => {
           max={max}
           step='0.001'
           value={value}
-          onChange={event => setConfigValue({
-            value: event.currentTarget.value,
-            name
-          })} />
+          onChange={onChange} />
       </div>
     </li>
   )
