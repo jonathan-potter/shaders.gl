@@ -1,13 +1,6 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import * as actions from 'actions'
-import { getCurrentShader, getShaderConfig } from 'reducers'
 
-const mapStateToProps = (state) => ({
-  config: getShaderConfig(state, getCurrentShader(state))
-})
-
-export default connect(mapStateToProps, actions)(({ config, name, min, max, setConfigValue }) => {
+export default ({ min, max, name, onChange, value }) => {
   return (
     <li className='menu-item'>
       <div className='menu-item-label left'>
@@ -20,7 +13,7 @@ export default connect(mapStateToProps, actions)(({ config, name, min, max, setC
           min={min}
           max={max}
           step='0.001'
-          value={config[name]}
+          value={value}
           onChange={event => setConfigValue({
             value: event.currentTarget.value,
             name
@@ -28,4 +21,4 @@ export default connect(mapStateToProps, actions)(({ config, name, min, max, setC
       </div>
     </li>
   )
-})
+}

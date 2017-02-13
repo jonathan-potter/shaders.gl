@@ -1,20 +1,29 @@
 import { combineReducers } from 'redux'
-import createSetting from 'reducers/createSetting'
+import createRangeSetting from 'reducers/createRangeSetting'
+import createSelectSetting from 'reducers/createSelectSetting'
 import createViewport from 'reducers/createViewport'
 
 import mapValues from 'lodash/mapValues'
 
 export default function (SHADER, DEFAULT_PROPERTIES) {
-  const stuff = {
-    config: combineReducers(mapValues(DEFAULT_PROPERTIES.config, (value, name) => {
-      return createSetting(SHADER, name, value)
+  return combineReducers({
+    rangeSettings: combineReducers(mapValues(DEFAULT_PROPERTIES.rangeSettings, (value, name) => {
+      return createRangeSetting(SHADER, name, value)
+    })),
+
+    selectSettings: combineReducers(mapValues(DEFAULT_PROPERTIES.selectSettings, (value, name) => {
+      return createSelectSetting(SHADER, name, value)
     })),
 
     viewport: createViewport(SHADER, DEFAULT_PROPERTIES.viewport)
-  }
-
-  return combineReducers(stuff)
+  })
 }
 
-export const getShaderConfig = (state, shader) => state.shaders[shader].config
 export const getShaderViewport = (state, shader) => state.shaders[shader].viewport
+export const getShaderConfig = (state, shader) => {
+  return Object.assign(
+    {},
+    mapValues(state.shaders[shader].rangeSettings, setting => setting.value),
+    state.shaders[shader].selectSettings
+  )
+}
