@@ -37,7 +37,7 @@ export default connect(() => ({}), actions)(({ config, name, setValue }) => {
   /* eslint-disable no-multi-spaces */
   return (
     <li className='menu-item menu-range-variable'>
-      <div>{name}</div>
+      <div className="menu-range-variable__name">{name}</div>
       <ul>
         <MenuItemRange onChange={onChangeValue}     name='value'     value={value}     min={min} max={max} />
         <MenuItemRange onChange={onChangeAmplitude} name='amplitude' value={amplitude} min={0}   max={(max - min) / 2} />

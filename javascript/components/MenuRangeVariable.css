@@ -5,6 +5,10 @@
   border-top: 1px solid #ddd;
 }
 
+.menu-range-variable__name {
+  font-weight: 600;
+}
+
 .menu-range-variable ul {
   margin: 0;
 }

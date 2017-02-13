@@ -19,9 +19,7 @@ export default connect(mapStateToProps, actions)(({ config, name, options, setCo
 
   return (
     <li className='menu-item menu-item-select'>
-      <div className='menu-item-select__label'>
-        <label htmlFor={name}>{name}</label>
-      </div>
+      <label className='menu-item-select__label' htmlFor={name}>{name}</label>
       <div className='menu-item-select__select'>
         <select
           className={`${name}-selector`}

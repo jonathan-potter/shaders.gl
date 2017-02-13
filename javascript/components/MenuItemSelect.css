@@ -9,11 +9,12 @@
 }
 
 .menu-item-select__label {
-  flex-basis: 30%;
+  flex-basis: 34%;
+  font-weight: 600;
 }
 
 .menu-item-select__select {
-  flex-basis: 70%;
+  flex-basis: 66%;
 }
 
 .menu-item-select__select select {
