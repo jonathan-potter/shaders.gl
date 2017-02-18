@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 import createRangeSetting from 'reducers/createRangeSetting'
 import createSelectSetting from 'reducers/createSelectSetting'
 import createViewport from 'reducers/createViewport'
-import { sinusoid } from 'utility/sinusoids'
+import { sinusoid } from 'utility/math'
 
 import mapValues from 'lodash/mapValues'
 

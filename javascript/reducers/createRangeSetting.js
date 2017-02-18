@@ -1,5 +1,5 @@
 import { getTime } from 'utility/time'
-import { phaseForSmoothFrequencyChange } from 'utility/sinusoids'
+import { phaseForSmoothFrequencyChange } from 'utility/math'
 
 const { PI: pi } = Math
 
