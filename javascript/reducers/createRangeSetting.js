@@ -1,3 +1,7 @@
+import { getTime } from 'utility/time'
+
+const { PI: pi } = Math
+
 export default function (SHADER, NAME, DEFAULT_VALUE) {
   return function (state = DEFAULT_VALUE, action) {
     if (action.shader !== SHADER) { return state }
@@ -31,9 +35,17 @@ export default function (SHADER, NAME, DEFAULT_VALUE) {
           phase: action.value
         }
       case 'SET_CONFIG_FREQUENCY':
+        const { frequency: f1, phase } = state
+        const f2 = action.value
+        const t = getTime()
+
+        let phi = 2 * pi * t / 1000 * (f1 - f2) + phase
+        phi = (2 * pi + phi % (2 * pi)) % (2 * pi)
+
         return {
           ...state,
-          frequency: action.value
+          frequency: action.value,
+          phase: phi
         }
       default:
         return state
