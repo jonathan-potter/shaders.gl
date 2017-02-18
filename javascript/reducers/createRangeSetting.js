@@ -1,8 +1,6 @@
 import { getTime } from 'utility/time'
 import { phaseForSmoothFrequencyChange } from 'utility/math'
 
-const { PI: pi } = Math
-
 export default function (SHADER, NAME, DEFAULT_VALUE) {
   return function (state = DEFAULT_VALUE, action) {
     if (action.shader !== SHADER) { return state }

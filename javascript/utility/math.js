@@ -7,7 +7,7 @@ export const sinusoid = ({ amplitude, animated, value, frequency, phase, time })
 }
 
 export const phaseForSmoothFrequencyChange = ({ f1, f2, phi1, t }) => {
-  const phi2 = 2 * pi * t / 1000 * (f1 - f2) + phi1
+  const phi2 = 2 * pi * t * (f1 - f2) + phi1
 
   return (2 * pi + phi2 % (2 * pi)) % (2 * pi)
 }

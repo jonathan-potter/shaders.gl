@@ -4,6 +4,7 @@ import createSelectSetting from 'reducers/createSelectSetting'
 import createViewport from 'reducers/createViewport'
 import { sinusoid } from 'utility/math'
 
+import assign from 'lodash/assign'
 import mapValues from 'lodash/mapValues'
 
 export default function (SHADER, DEFAULT_PROPERTIES) {
@@ -22,9 +23,9 @@ export default function (SHADER, DEFAULT_PROPERTIES) {
 
 export const getShaderViewport = (state, shader) => state.shaders[shader].viewport
 export const getShaderConfig = (state, shader, time) => {
-  return Object.assign(
+  return assign(
     {},
-    mapValues(state.shaders[shader].rangeSettings, settings => sinusoid(Object.assign({ time }, settings))),
+    mapValues(state.shaders[shader].rangeSettings, settings => sinusoid(assign({ time }, settings))),
     state.shaders[shader].selectSettings
   )
 }

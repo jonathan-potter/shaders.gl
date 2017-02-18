@@ -18,13 +18,13 @@ export default ({ canvas, context, shader, program, store }) => function renderF
     const { center, range, rotation } = getShaderViewport(state, currentShader)
 
     const time = getTime()
-    const config = getShaderConfig(state, currentShader, time / 1000)
+    const config = getShaderConfig(state, currentShader, time)
 
     if (config.speed) {
-      advanceTime(parseFloat(config.speed))
+      advanceTime(parseFloat(config.speed) / 1000)
     } else {
       /* only here for spinning cube */
-      advanceTime(16)
+      advanceTime(0.016)
     }
 
     const ASPECT_RATIO = window.innerWidth / window.innerHeight
@@ -41,8 +41,8 @@ export default ({ canvas, context, shader, program, store }) => function renderF
         window.innerHeight
       ],
       julia_c: [
-        -0.795 + Math.sin(time / 2000) / 40,
-        0.2321 + Math.cos(time / 1330) / 40
+        -0.795 + Math.sin(time / 2) / 40,
+        0.2321 + Math.cos(time / 1.33) / 40
       ],
       msaa_coordinates: msaaCoordinates[config.supersamples],
       /* large times won't convert to float 32 well :( */

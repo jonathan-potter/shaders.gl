@@ -15,7 +15,6 @@ uniform float REFLECTIVITY;
 const float pi = 3.1415926;
 float CHECK_SIZE_1 = pi / CHECK_SIZE;
 float ASPECT_RATIO = RESOLUTION.x / RESOLUTION.y;
-float TIME_S = TIME / 1000.0;
 
 const vec3 LOOK_AT = vec3(0.0, 0.0, 0.0);
 const vec3 UP      = vec3(0.0, 0.0, 1.0);
@@ -210,9 +209,9 @@ float vignette(vec2 uv) {
 
 vec3 cameraPosition() {
   return vec3(
-    DISTANCE * sin(TIME_S / 6.0),
-    DISTANCE * cos(TIME_S / 6.0),
-    DISTANCE * sin(TIME_S / 2.0)
+    DISTANCE * sin(TIME / 6.0),
+    DISTANCE * cos(TIME / 6.0),
+    DISTANCE * sin(TIME / 2.0)
   );
 }
 
@@ -222,7 +221,7 @@ void main() {
   // camera
   vec3 origin = cameraPosition();
   vec3 lookVector = normalize(-origin); // look toward 0, 0, 0
-  vec3 up = rotateX(WOBBLE * sin(TIME_S / 0.50)) * UP; // wobble camera
+  vec3 up = rotateX(WOBBLE * sin(TIME / 0.50)) * UP; // wobble camera
 
   Ray ray = createRay(origin, lookVector, up, uv, FOV * pi / 180.0);
 
