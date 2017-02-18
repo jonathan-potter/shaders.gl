@@ -2,13 +2,13 @@ import { getCurrentShader, getShaderConfig, getShaderViewport } from 'reducers'
 import { SHADER_ENUM } from 'javascript/config'
 import setUniformValue from 'webgl-utilities/setUniformValue'
 import msaaCoordinates from 'webgl-utilities/msaaCoordinates'
+import { advanceTime, getTime } from 'utility/time'
 
 import assign from 'lodash/assign'
 import forEach from 'lodash/forEach'
 
 const { requestAnimationFrame } = window
 
-let time = 0
 export default ({ canvas, context, shader, program, store }) => function renderFrame () {
   /* eslint-disable no-multi-spaces, key-spacing */
   const state = store.getState()
@@ -16,13 +16,15 @@ export default ({ canvas, context, shader, program, store }) => function renderF
   const currentShader = getCurrentShader(state)
   if (shader === currentShader) {
     const { center, range, rotation } = getShaderViewport(state, currentShader)
+
+    const time = getTime()
     const config = getShaderConfig(state, currentShader, time / 1000)
 
     if (config.speed) {
-      time += parseFloat(config.speed)
+      advanceTime(parseFloat(config.speed))
     } else {
       /* only here for spinning cube */
-      time += 16
+      advanceTime(16)
     }
 
     const ASPECT_RATIO = window.innerWidth / window.innerHeight

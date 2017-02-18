@@ -2,10 +2,9 @@ import { combineReducers } from 'redux'
 import createRangeSetting from 'reducers/createRangeSetting'
 import createSelectSetting from 'reducers/createSelectSetting'
 import createViewport from 'reducers/createViewport'
+import { sinusoid } from 'utility/sinusoids'
 
 import mapValues from 'lodash/mapValues'
-
-const { PI: pi, sin } = Math
 
 export default function (SHADER, DEFAULT_PROPERTIES) {
   return combineReducers({
@@ -25,13 +24,7 @@ export const getShaderViewport = (state, shader) => state.shaders[shader].viewpo
 export const getShaderConfig = (state, shader, time) => {
   return Object.assign(
     {},
-    mapValues(state.shaders[shader].rangeSettings, momentaryValue(time)),
+    mapValues(state.shaders[shader].rangeSettings, settings => sinusoid(Object.assign({ time }, settings))),
     state.shaders[shader].selectSettings
   )
-}
-
-const momentaryValue = (time) => ({ amplitude, animated, frequency, phase, value }) => {
-  if (!animated) { return value }
-console.log(value + amplitude * sin(2 * pi * frequency + phase))
-  return value + amplitude * sin(2 * pi * frequency * time + phase)
 }
