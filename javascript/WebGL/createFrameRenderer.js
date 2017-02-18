@@ -22,7 +22,7 @@ export default ({ canvas, context, shader, program, store }) => function renderF
       time += parseFloat(config.speed)
     } else {
       /* only here for spinning cube */
-      time += 0.016
+      time += 16
     }
 
     const ASPECT_RATIO = window.innerWidth / window.innerHeight
