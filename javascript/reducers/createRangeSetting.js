@@ -1,4 +1,5 @@
 import { getTime } from 'utility/time'
+import { phaseForSmoothFrequencyChange } from 'utility/sinusoids'
 
 const { PI: pi } = Math
 
@@ -35,17 +36,14 @@ export default function (SHADER, NAME, DEFAULT_VALUE) {
           phase: action.value
         }
       case 'SET_CONFIG_FREQUENCY':
-        const { frequency: f1, phase } = state
+        const { frequency: f1, phase: phi1 } = state
         const f2 = action.value
         const t = getTime()
-
-        let phi = 2 * pi * t / 1000 * (f1 - f2) + phase
-        phi = (2 * pi + phi % (2 * pi)) % (2 * pi)
 
         return {
           ...state,
           frequency: action.value,
-          phase: phi
+          phase: phaseForSmoothFrequencyChange({ f1, f2, phi1, t })
         }
       default:
         return state
