@@ -6,7 +6,7 @@ import throttle from 'lodash/throttle'
 import createLogger from 'redux-logger'
 import thunk from 'redux-thunk'
 
-const CURRENT_VERSION = '0.2.3'
+const CURRENT_VERSION = '0.3.0'
 
 export default function configureStore () {
   const middlewares = [thunk, createLogger()]
