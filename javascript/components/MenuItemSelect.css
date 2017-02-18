@@ -1,0 +1,22 @@
+.menu-item-select {
+  display: flex;
+  align-items: center;
+
+  margin: 5px 20px 5px 20px;
+  padding-top: 5px;
+
+  border-top: 1px solid #ddd;
+}
+
+.menu-item-select__label {
+  flex-basis: 34%;
+  font-weight: 600;
+}
+
+.menu-item-select__select {
+  flex-basis: 66%;
+}
+
+.menu-item-select__select select {
+  width: 100%;
+}

@@ -69,6 +69,24 @@ export const setConfigValue = ({ name, value }) => (dispatch, getState) => {
   })
 }
 
+export const setValue = ({ action, name, value }) => (dispatch, getState) => {
+  const currentShader = getCurrentShader(getState())
+
+  throttledRegisterEvent({
+    category: currentShader,
+    action,
+    label: name,
+    value
+  })
+
+  dispatch({
+    type: action,
+    shader: getCurrentShader(getState()),
+    name,
+    value
+  })
+}
+
 export const setCurrentShader = ({ shader }) => (dispatch, getState) => {
   const currentShader = getCurrentShader(getState())
   const action = 'SET_SHADER'

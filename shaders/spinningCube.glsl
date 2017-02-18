@@ -11,6 +11,7 @@ uniform float SHAPE;
 uniform float DISTANCE;
 uniform float REFLECTIVITY;
 
+
 const float pi = 3.1415926;
 float CHECK_SIZE_1 = pi / CHECK_SIZE;
 float ASPECT_RATIO = RESOLUTION.x / RESOLUTION.y;

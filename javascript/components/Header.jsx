@@ -15,6 +15,7 @@ export default () => {
     </header>
   )
 }
+
 const MenuGroup = connect(() => ({}), actions)(({ toggleMenu }) => {
   return (
     <heading>

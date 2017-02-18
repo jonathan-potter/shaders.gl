@@ -1,4 +1,4 @@
-/* eslint-disable key-spacing */
+/* eslint-disable */
 export const DEFAULT_MENU_CONFIG = {
   'julia set': {
     menuOrder: ['colorset', 'brightness', 'speed', 'exponent', 'supersamples'],
@@ -54,11 +54,13 @@ export const DEFAULT_MENU_CONFIG = {
 
 export const DEFAULT_STORE = {
   'julia set': {
-    config: {
-      brightness: 4,
+    rangeSettings: {
+      brightness: { value: 4,  min: 1, max: 8,   animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 },
+      exponent:   { value: 2,  min: 0, max: 10,  animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 },
+      speed:      { value: 16, min: 0, max: 320, animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 }
+    },
+    selectSettings: {
       colorset: 0,
-      exponent: 2,
-      speed: 16,
       supersamples: 1
     },
     viewport: {
@@ -68,10 +70,13 @@ export const DEFAULT_STORE = {
     }
   },
   'mandelbrot set': {
-    config: {
-      brightness: 4,
+    rangeSettings: {
+      brightness: { value: 4,  min: 1, max: 8,   animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 },
+      exponent:   { value: 2,  min: 0, max: 10,  animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 },
+      speed:      { value: 16, min: 0, max: 320, animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 }
+    },
+    selectSettings: {
       colorset: 0,
-      exponent: 2,
       supersamples: 1
     },
     viewport: {
@@ -81,10 +86,13 @@ export const DEFAULT_STORE = {
     }
   },
   'burning ship': {
-    config: {
-      brightness: 4,
+    rangeSettings: {
+      brightness: { value: 4,  min: 1, max: 8,   animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 },
+      exponent:   { value: 2,  min: 0, max: 10,  animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 },
+      speed:      { value: 16, min: 0, max: 320, animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 }
+    },
+    selectSettings: {
       colorset: 0,
-      exponent: 2,
       supersamples: 1
     },
     viewport: {
@@ -94,34 +102,39 @@ export const DEFAULT_STORE = {
     }
   },
   'modified collatz': {
-    config: {
-      depth: 200,
-      constant_1: 4,
-      angle1: Math.PI,
-      angle2: Math.PI
+    rangeSettings: {
+      depth:      { value: 200,     min: 1, max: 800,         animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 },
+      constant_1: { value: 4,       min: 1, max: 10,          animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 },
+      angle1:     { value: Math.PI, min: 0, max: 2 * Math.PI, animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 },
+      angle2:     { value: Math.PI, min: 0, max: 2 * Math.PI, animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 }
+    },
+    selectSettings: {
+      supersamples: 1
     },
     viewport: {
       center: { x: 0, y: 0 },
-      range: { x: 100, y: 100 },
+      range: { x: 10, y: 10 },
       rotation: 0
     }
   },
   'spinning cube': {
-    config: {
+    rangeSettings: {
+      distance:     { value: 10,   min: 2,      max: 20,  animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 },
+      FOV:          { value: 90,   min: 0.0001, max: 360, animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 },
+      check_size:   { value: 32,   min: 1,      max: 50,  animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 },
+      reflectivity: { value: 0.45, min: 0,      max: 1,   animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 },
+      wobble:       { value: 0.2,  min: 0,      max: 1,   animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 }
+    },
+    selectSettings: {
       colorset: 0,
-      shape: 0,
-      distance: 10,
-      FOV: 90,
-      check_size: 32,
-      reflectivity: 0.45,
-      wobble: 0.2
+      shape: 0
     },
     viewport: {
       center: { x: 0.25, y: 0.25 },
       range: { x: 1, y: 1 },
       rotation: 0
     }
-  }
+  },
 }
 
 export const SHADER_ENUM = {

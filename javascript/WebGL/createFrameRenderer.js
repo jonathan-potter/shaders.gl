@@ -2,13 +2,13 @@ import { getCurrentShader, getShaderConfig, getShaderViewport } from 'reducers'
 import { SHADER_ENUM } from 'javascript/config'
 import setUniformValue from 'webgl-utilities/setUniformValue'
 import msaaCoordinates from 'webgl-utilities/msaaCoordinates'
+import { advanceTime, getTime } from 'utility/time'
 
 import assign from 'lodash/assign'
 import forEach from 'lodash/forEach'
 
 const { requestAnimationFrame } = window
 
-let time = 0
 export default ({ canvas, context, shader, program, store }) => function renderFrame () {
   /* eslint-disable no-multi-spaces, key-spacing */
   const state = store.getState()
@@ -16,13 +16,15 @@ export default ({ canvas, context, shader, program, store }) => function renderF
   const currentShader = getCurrentShader(state)
   if (shader === currentShader) {
     const { center, range, rotation } = getShaderViewport(state, currentShader)
-    const config            = getShaderConfig(state, currentShader)
+
+    const time = getTime()
+    const config = getShaderConfig(state, currentShader, time)
 
     if (config.speed) {
-      time += parseFloat(config.speed)
+      advanceTime(parseFloat(config.speed) / 1000)
     } else {
       /* only here for spinning cube */
-      time += 0.016
+      advanceTime(0.016)
     }
 
     const ASPECT_RATIO = window.innerWidth / window.innerHeight
@@ -39,8 +41,8 @@ export default ({ canvas, context, shader, program, store }) => function renderF
         window.innerHeight
       ],
       julia_c: [
-        -0.795 + Math.sin(time / 2000) / 40,
-        0.2321 + Math.cos(time / 1330) / 40
+        -0.795 + Math.sin(time / 2) / 40,
+        0.2321 + Math.cos(time / 1.33) / 40
       ],
       msaa_coordinates: msaaCoordinates[config.supersamples],
       /* large times won't convert to float 32 well :( */

@@ -1,31 +1,22 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import * as actions from 'actions'
-import { getCurrentShader, getShaderConfig } from 'reducers'
+import cn from 'classnames'
 
-const mapStateToProps = (state) => ({
-  config: getShaderConfig(state, getCurrentShader(state))
-})
-
-export default connect(mapStateToProps, actions)(({ config, name, min, max, setConfigValue }) => {
+export default ({ disabled, min, max, name, onChange, value }) => {
   return (
-    <li className='menu-item'>
-      <div className='menu-item-label left'>
+    <li className={cn('menu-item-range', { 'menu-item-range--disabled': disabled })}>
+      <div className='menu-item-range__label'>
         <label htmlFor={name}>{name}</label>
       </div>
-      <div className='menu-item-range left'>
+      <div className='menu-item-range__slider'>
         <input type='range'
           className='config-input'
           name={name}
           min={min}
           max={max}
           step='0.001'
-          value={config[name]}
-          onChange={event => setConfigValue({
-            value: event.currentTarget.value,
-            name
-          })} />
+          value={value}
+          onChange={onChange} />
       </div>
     </li>
   )
-})
+}
