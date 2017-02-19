@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import MenuItemRange from 'components/MenuItemRange'
 import * as actions from 'actions'
 
-import './MenuRangeVariable.css'
+import './MenuRangeVariable.scss'
 
 const { PI: pi } = Math
 

@@ -3,7 +3,7 @@ import Header from 'components/Header'
 import Menu from 'components/Menu'
 import CanvasContainer from 'components/CanvasContainer'
 
-import './App.css'
+import './App.scss'
 
 export default class App extends Component {
   componentDidMount () {

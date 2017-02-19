@@ -10,7 +10,7 @@ import * as actions from 'actions'
 import map from 'lodash/map'
 import cn from 'classnames'
 
-import './menu.css'
+import './menu.scss'
 
 const mapStateToProps = ({ currentShader, menuOpen, shaders }) => ({
   shaders,

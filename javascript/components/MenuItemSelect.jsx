@@ -4,7 +4,7 @@ import * as actions from 'actions'
 import { getCurrentShader, getShaderConfig } from 'reducers'
 import map from 'lodash/map'
 
-import './MenuItemSelect.css'
+import './MenuItemSelect.scss'
 
 const mapStateToProps = (state) => ({
   config: getShaderConfig(state, getCurrentShader(state))
