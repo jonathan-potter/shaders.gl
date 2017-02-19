@@ -10,7 +10,7 @@ module.exports = {
   },
   resolve: {
     // Allow to omit extensions when requiring these files
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['.js', '.jsx'],
     alias: {
       /* eslint-disable key-spacing */
       assets:            path.resolve(__dirname, 'assets'),
@@ -28,7 +28,7 @@ module.exports = {
     }
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$|.jsx$/,
         exclude: /node_modules/,
@@ -41,13 +41,17 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader'
+        })
       }
     ]
   },
   devtool: '#inline-source-map',
   plugins: [
-    new ExtractTextPlugin('build/style.css', {
+    new ExtractTextPlugin({
+      filename: 'build/style.css',
       allChunks: true
     })
   ]
