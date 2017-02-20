@@ -33,12 +33,12 @@ module.exports = {
       {
         test: /\.js$|.jsx$/,
         exclude: /node_modules/,
-        loader: 'babel-loader'
+        use: 'babel-loader'
       },
       {
         test: /\.glsl$/,
         exclude: /node_modules/,
-        loader: 'raw-loader'
+        use: 'raw-loader'
       },
       {
         test: /\.css|.scss$/,
