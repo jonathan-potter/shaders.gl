@@ -1,4 +1,5 @@
 const path = require('path')
+const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
@@ -43,8 +44,8 @@ module.exports = {
         test: /\.css|.scss$/,
         use: ExtractTextPlugin.extract({
           loader: [
-            { loader: "css-loader", options: { sourceMap: true } },
-            { loader: "sass-loader", options: { sourceMap: true } }
+            { loader: 'css-loader', options: { sourceMap: true } },
+            { loader: 'sass-loader', options: { sourceMap: true } }
           ]
         })
       }
@@ -55,6 +56,13 @@ module.exports = {
     new ExtractTextPlugin({
       filename: 'build/style.css',
       allChunks: true
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true,
+      compress: {
+        warnings: false,
+        pure_funcs: ['console.log', 'window.console.log.apply']
+      }
     })
   ]
 }
