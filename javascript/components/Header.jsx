@@ -7,7 +7,7 @@ import './Header.scss'
 
 export default () => {
   return (
-    <header>
+    <header className='page-header'>
       <div className='container'>
         <MenuGroup />
         <NavGroup />

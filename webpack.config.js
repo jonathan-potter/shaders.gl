@@ -40,11 +40,11 @@ module.exports = {
         loader: 'raw-loader'
       },
       {
-        test: /\.scss$/,
+        test: /\.css|.scss$/,
         use: ExtractTextPlugin.extract({
           loader: [
-            { loader: "css-loader" },
-            { loader: "sass-loader" }
+            { loader: "css-loader", options: { sourceMap: true } },
+            { loader: "sass-loader", options: { sourceMap: true } }
           ]
         })
       }

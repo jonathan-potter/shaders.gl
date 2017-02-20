@@ -6,17 +6,17 @@
   padding-top: 5px;
 
   border-top: 1px solid #ddd;
-}
 
-.menu-item-select__label {
-  flex-basis: 34%;
-  font-weight: 600;
-}
+  &__label {
+    flex-basis: 34%;
+    font-weight: 600;
+  }
 
-.menu-item-select__select {
-  flex-basis: 66%;
-}
+  &__select {
+    flex-basis: 66%;
 
-.menu-item-select__select select {
-  width: 100%;
+    select {
+      width: 100%;
+    }
+  }
 }

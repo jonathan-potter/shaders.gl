@@ -1,7 +1,7 @@
 /* originally written for Random Boggle Solver: http://jonathan-potter.github.io/boggle */
 
 /* HEADER */
-header {
+.page-header {
   position: fixed;
   top: 0;
   left: 0;
@@ -18,7 +18,9 @@ header {
   overflow: hidden;
 }
 
-header * {
+
+
+.page-header * {
   text-decoration: none;
   color: inherit;
 }
