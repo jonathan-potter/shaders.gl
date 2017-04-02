@@ -6,6 +6,8 @@ const { PI: pi } = Math
 
 class CanvasContainer extends Component {
   componentDidMount () {
+    this.props.initializeWebGL()
+
     /* React onClick's SyntheticEvent does not contain all required properties */
     const canvas = document.getElementById('main')
 
@@ -61,9 +63,7 @@ class CanvasContainer extends Component {
   }
 
   render () {
-    return (
-      <canvas id='main' />
-    )
+    return <canvas id='main' />
   }
 }
 
