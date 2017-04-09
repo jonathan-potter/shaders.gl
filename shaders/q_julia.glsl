@@ -92,7 +92,7 @@ vec2 fragCoordToXY(vec4 fragCoord) {
   return rotate2D(cartesianPosition, CENTER, ROTATION);
 }
 
-float msaa(vec2 coordinate) {
+float walk_forward(vec2 coordinate) {
   for (float z = 2.0; z > 0.0; z -= 0.01) {
     vec4 startingPoint = vec4(coordinate, z, 0.0);
 
@@ -103,15 +103,13 @@ float msaa(vec2 coordinate) {
     }
   }
 
-  // int iteration = mandelbrot(vec4(coordinate, 0.0, 0.0));
-
   return 0.0;
 }
 
 void main() {
   vec2 coordinate = fragCoordToXY(gl_FragCoord);
 
-  float fractalValue = msaa(coordinate) / ITERATIONS * BRIGHTNESS;
+  float fractalValue = walk_forward(coordinate) / ITERATIONS * BRIGHTNESS;
 
   gl_FragColor = vec4(fractalValue, fractalValue, fractalValue, 1.0);
 }

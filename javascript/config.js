@@ -1,18 +1,20 @@
 /* eslint-disable */
 export const DEFAULT_MENU_CONFIG = {
   'julia set': {
-    menuOrder: ['colorset', 'brightness', 'speed', 'exponent', 'supersamples'],
+    menuOrder: ['colorset', 'iterations', 'brightness', 'speed', 'exponent', 'supersamples'],
     controls: {
-      brightness: { type: 'range', min: 1, max: 8 },
-      colorset: { type: 'select', options: ['linear', 'squared periodic'] },
-      exponent: { type: 'range', min: 0, max: 10 },
-      speed: { type: 'range', min: 0, max: 320 },
+      iterations:   { type: 'range', min: 1, max: 256 },
+      brightness:   { type: 'range', min: 1, max: 8 },
+      colorset:     { type: 'select', options: ['linear', 'squared periodic'] },
+      exponent:     { type: 'range', min: 0, max: 10 },
+      speed:        { type: 'range', min: 0, max: 320 },
       supersamples: { type: 'select', options: { 1: '1x', 4: '4x', 16: '16x' } }
     }
   },
   'mandelbrot set': {
-    menuOrder: ['colorset', 'brightness', 'exponent', 'supersamples'],
+    menuOrder: ['colorset', 'iterations', 'brightness', 'exponent', 'supersamples'],
     controls: {
+      iterations:   { type: 'range', min: 1, max: 256 },
       brightness:   { type: 'range', min: 1, max: 8 },
       exponent:     { type: 'range', min: 0, max: 10 },
       colorset:     { type: 'select', options: ['linear', 'squared periodic'] },
@@ -55,9 +57,10 @@ export const DEFAULT_MENU_CONFIG = {
 export const DEFAULT_STORE = {
   'julia set': {
     rangeSettings: {
-      brightness: { value: 4,  min: 1, max: 8,   animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 },
-      exponent:   { value: 2,  min: 0, max: 10,  animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 },
-      speed:      { value: 16, min: 0, max: 320, animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 }
+      iterations: { value: 128, min: 1, max: 256, animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 },
+      brightness: { value: 4,  min: 1,  max: 8,   animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 },
+      exponent:   { value: 2,  min: 0,  max: 10,  animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 },
+      speed:      { value: 16, min: 0,  max: 320, animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 }
     },
     selectSettings: {
       colorset: 0,
@@ -71,9 +74,10 @@ export const DEFAULT_STORE = {
   },
   'mandelbrot set': {
     rangeSettings: {
-      brightness: { value: 4,  min: 1, max: 8,   animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 },
-      exponent:   { value: 2,  min: 0, max: 10,  animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 },
-      speed:      { value: 16, min: 0, max: 320, animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 }
+      iterations: { value: 128, min: 1, max: 256, animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 },
+      brightness: { value: 4,   min: 1, max: 8,   animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 },
+      exponent:   { value: 2,   min: 0, max: 10,  animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 },
+      speed:      { value: 16,  min: 0, max: 320, animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 }
     },
     selectSettings: {
       colorset: 0,
