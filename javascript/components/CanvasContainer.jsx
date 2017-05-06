@@ -6,8 +6,6 @@ const { abs, PI: pi } = Math
 
 class CanvasContainer extends Component {
   componentDidMount () {
-    this.props.initializeWebGL()
-
     /* React onClick's SyntheticEvent does not contain all required properties */
     const canvas = document.getElementById('main')
 
@@ -16,6 +14,8 @@ class CanvasContainer extends Component {
     canvas.addEventListener('touchstart', this.onTouchStart.bind(this))
     canvas.addEventListener('touchmove', this.onTouchMove.bind(this))
     canvas.addEventListener('touchend', this.onTouchEnd.bind(this))
+
+    this.props.initializeWebGL({ canvas })
   }
 
   onTouchMove (event) {

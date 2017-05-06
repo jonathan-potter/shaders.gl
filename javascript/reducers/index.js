@@ -3,15 +3,18 @@ import { DEFAULT_STORE } from 'javascript/config'
 import createReducer from 'reducers/createReducer'
 import createShader, * as Shader from 'reducers/createShader'
 import menuOpen from 'reducers/menuOpen'
+import ShaderReducers from 'reducers/shaderReducers'
+
 import mapValues from 'lodash/mapValues'
 
 export default combineReducers({
   currentShader: createReducer('shader', 'julia set'),
   menuOpen,
   pinchStart: createReducer('pinch_start', {}),
-  shaders: combineReducers(mapValues(DEFAULT_STORE, (shaderConfig, shaderName) => (
+  shadersSettings: combineReducers(mapValues(DEFAULT_STORE, (shaderConfig, shaderName) => (
     createShader(shaderName, shaderConfig)
-  )))
+  ))),
+  shaders: ShaderReducers
 })
 
 export const getCurrentShader = (state) => state.currentShader

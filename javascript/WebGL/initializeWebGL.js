@@ -4,9 +4,7 @@ import programForShader from 'webgl-utilities/programForShader'
 
 const { requestAnimationFrame } = window
 
-export default ({ store }) => {
-  const canvas = document.getElementById('main')
-
+export default ({ canvas, store }) => {
   const startRunLoop = createRunLoop({
     canvas,
     context: canvas.getContext('webgl'),
@@ -22,12 +20,13 @@ export default ({ store }) => {
 const createRunLoop = ({ canvas, context, shader, store, firstRun = true }) => () => {
   const state = store.getState()
   const currentShader = getCurrentShader(state)
+  const fragmentShaderSource = state.shaders[0].code
 
   if (shader !== currentShader || firstRun) {
     shader = currentShader
     firstRun = false
 
-    const program = programForShader({ context, shader })
+    const program = programForShader({ context, fragmentShaderSource, shader })
 
     context.useProgram(program)
     requestAnimationFrame(createFrameRenderer({ canvas, context, shader, program, store }))

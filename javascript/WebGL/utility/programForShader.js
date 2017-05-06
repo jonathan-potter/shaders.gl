@@ -16,10 +16,10 @@ const SHADER_SOURCES = {
 }
 
 const programs = {}
-export default ({ context, shader }) => (
+export default ({ context, shader, fragmentShaderSource }) => (
   programs[shader] = programs[shader] || configureProgram({
     context,
-    fragmentShaderSource: SHADER_SOURCES[shader],
+    fragmentShaderSource,
     vertexShaderSource: vertexShaderSource
   })
 )

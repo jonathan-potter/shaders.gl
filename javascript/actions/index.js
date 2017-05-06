@@ -1,3 +1,4 @@
+import ShaderActions from 'actions/ShaderActions'
 import { getCurrentShader, getShaderViewport, getPinchStart } from 'reducers'
 import registerEvent from 'utility/registerEvent'
 import throttle from 'lodash/throttle'
@@ -185,3 +186,5 @@ export const resetPinchStart = () => (dispatch) => {
     type: 'RESET_PINCH_START'
   })
 }
+
+export { ShaderActions }
