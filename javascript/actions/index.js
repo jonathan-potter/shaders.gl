@@ -101,7 +101,7 @@ export const setValue = ({ action, name, value }) => (dispatch, getState) => {
 
   dispatch({
     type: action,
-    shader: getCurrentShader(getState()),
+    shader: currentShader,
     name,
     value
   })

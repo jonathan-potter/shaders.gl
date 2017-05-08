@@ -31,8 +31,7 @@ export default function configureStore () {
 
     saveState({
       currentShader: state.currentShader,
-      shaders: state.shaders,
-      viewports: state.viewports,
+      shaderSettings: state.shaderSettings,
       version: CURRENT_VERSION
     })
   }, 1000))

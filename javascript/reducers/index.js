@@ -9,7 +9,7 @@ export default combineReducers({
   currentShader: createReducer('current_shader', 0),
   menuOpen,
   pinchStart: createReducer('pinch_start', {}),
-  shadersSettings: combineReducers(DEFAULT_STORE.map((shaderConfig, shaderId) => (
+  shaderSettings: combineReducers(DEFAULT_STORE.map((shaderConfig, shaderId) => (
     createShader(shaderId, shaderConfig)
   ))),
   shaders: ShaderReducers

@@ -21,11 +21,11 @@ export default function (SHADER, DEFAULT_PROPERTIES) {
   })
 }
 
-export const getShaderViewport = (state, shader) => state.shadersSettings[shader].viewport
+export const getShaderViewport = (state, shader) => state.shaderSettings[shader].viewport
 export const getShaderConfig = (state, shader, time) => {
   return assign(
     {},
-    mapValues(state.shadersSettings[shader].rangeSettings, settings => sinusoid(assign({ time }, settings))),
-    state.shadersSettings[shader].selectSettings
+    mapValues(state.shaderSettings[shader].rangeSettings, settings => sinusoid(assign({ time }, settings))),
+    state.shaderSettings[shader].selectSettings
   )
 }

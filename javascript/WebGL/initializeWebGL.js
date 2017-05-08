@@ -16,13 +16,13 @@ export default ({ canvas, store }) => {
 
   store.subscribe(startRunLoop)
 
-  startRunLoop()
+  // startRunLoop()
 }
 
 const createRunLoop = ({ canvas, context, shader, store, firstRun = true }) => () => {
   const state = store.getState()
   const currentShader = getCurrentShader(state)
-  const fragmentShaderSource = state.shaders[0].code
+  const fragmentShaderSource = state.shaders[currentShader].code
 
   if (shader !== currentShader || firstRun) {
     shader = currentShader

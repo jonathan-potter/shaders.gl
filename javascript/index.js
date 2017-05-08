@@ -9,7 +9,7 @@ import { ShaderActions } from 'actions'
 const store = configureStore()
 
 Shader.all().then(shaders => {
-  shaders.forEach(shader => ShaderActions.create(shader)(store.dispatch))
+  shaders.forEach(shader => ShaderActions.add(shader)(store.dispatch))
 })
 
 const initialize = ({ canvas }) => initializeWebGL({ store, canvas })

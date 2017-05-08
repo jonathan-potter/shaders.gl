@@ -1,6 +1,6 @@
 export default (state = [], action) => {
   switch (action.type) {
-    case 'CREATE_SHADER':
+    case 'ADD_SHADER':
       return state.concat(action.shader)
     case 'UPDATE_SHADER': {
       const index = state.findIndex(shader => shader.id === action.shader.id)

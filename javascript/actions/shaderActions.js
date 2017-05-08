@@ -1,7 +1,7 @@
 export default {
-  create: shader => dispatch => {
+  add: shader => dispatch => {
     dispatch({
-      type: 'CREATE_SHADER',
+      type: 'ADD_SHADER',
       shader
     })
   },
