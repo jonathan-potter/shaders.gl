@@ -1,6 +1,6 @@
 /* eslint-disable */
-export const DEFAULT_MENU_CONFIG = {
-  'julia set': {
+export const DEFAULT_MENU_CONFIG = [
+  {
     menuOrder: ['colorset', 'brightness', 'speed', 'exponent', 'supersamples'],
     controls: {
       brightness: { type: 'range', min: 1, max: 8 },
@@ -10,7 +10,7 @@ export const DEFAULT_MENU_CONFIG = {
       supersamples: { type: 'select', options: { 1: '1x', 4: '4x', 16: '16x' } }
     }
   },
-  'mandelbrot set': {
+  {
     menuOrder: ['colorset', 'brightness', 'exponent', 'supersamples'],
     controls: {
       brightness:   { type: 'range', min: 1, max: 8 },
@@ -19,7 +19,7 @@ export const DEFAULT_MENU_CONFIG = {
       supersamples: { type: 'select', options: { 1: '1x', 4: '4x', 16: '16x' } }
     }
   },
-  'burning ship': {
+  {
     menuOrder: ['colorset', 'brightness', 'exponent', 'supersamples'],
     controls: {
       brightness:   { type: 'range', min: 1, max: 8 },
@@ -28,7 +28,7 @@ export const DEFAULT_MENU_CONFIG = {
       supersamples: { type: 'select', options: { 1: '1x', 4: '4x', 16: '16x' } }
     }
   },
-  'modified collatz': {
+  {
     menuOrder: ['depth', 'constant_1', 'angle1', 'angle2', 'supersamples'],
     controls: {
       depth:      { type: 'range', min: 1, max: 800 },
@@ -38,7 +38,7 @@ export const DEFAULT_MENU_CONFIG = {
       supersamples: { type: 'select', options: { 1: '1x', 4: '4x', 16: '16x' } }
     }
   },
-  'spinning cube': {
+  {
     menuOrder: ['colorset', 'shape', 'distance', 'FOV', 'check_size', 'reflectivity', 'wobble'],
     controls: {
       colorset: { type: 'select', options: ['grey', 'colors'] },
@@ -50,10 +50,10 @@ export const DEFAULT_MENU_CONFIG = {
       wobble: { type: 'range', min: 0, max: 1 }
     }
   }
-}
+]
 
-export const DEFAULT_STORE = {
-  'julia set': {
+export const DEFAULT_STORE = [
+  {
     rangeSettings: {
       brightness: { value: 4,  min: 1, max: 8,   animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 },
       exponent:   { value: 2,  min: 0, max: 10,  animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 },
@@ -69,7 +69,7 @@ export const DEFAULT_STORE = {
       rotation: 0
     }
   },
-  'mandelbrot set': {
+  {
     rangeSettings: {
       brightness: { value: 4,  min: 1, max: 8,   animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 },
       exponent:   { value: 2,  min: 0, max: 10,  animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 },
@@ -85,7 +85,7 @@ export const DEFAULT_STORE = {
       rotation: 0
     }
   },
-  'burning ship': {
+  {
     rangeSettings: {
       brightness: { value: 4,  min: 1, max: 8,   animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 },
       exponent:   { value: 2,  min: 0, max: 10,  animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 },
@@ -101,7 +101,7 @@ export const DEFAULT_STORE = {
       rotation: 0
     }
   },
-  'modified collatz': {
+  {
     rangeSettings: {
       depth:      { value: 200,     min: 1, max: 800,         animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 },
       constant_1: { value: 4,       min: 1, max: 10,          animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 },
@@ -117,7 +117,7 @@ export const DEFAULT_STORE = {
       rotation: 0
     }
   },
-  'spinning cube': {
+  {
     rangeSettings: {
       distance:     { value: 10,   min: 2,      max: 20,  animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 },
       FOV:          { value: 90,   min: 0.0001, max: 360, animated: false, amplitude: 1, phase: 0, frequency: 1 / 5 },
@@ -134,8 +134,8 @@ export const DEFAULT_STORE = {
       range: { x: 1, y: 1 },
       rotation: 0
     }
-  },
-}
+  }
+]
 
 export const SHADER_ENUM = {
   'julia set': 0,

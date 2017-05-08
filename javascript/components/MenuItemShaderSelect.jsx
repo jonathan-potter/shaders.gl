@@ -26,7 +26,7 @@ export default connect(mapStateToProps, actions)(
             name={name}
             value={currentShader}
             onChange={event => setCurrentShader({
-              shader: event.currentTarget.value
+              shader: parseInt(event.currentTarget.value)
             })}>
             {optionElements}
           </select>

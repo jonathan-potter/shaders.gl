@@ -5,10 +5,12 @@ import programForShader from 'webgl-utilities/programForShader'
 const { requestAnimationFrame } = window
 
 export default ({ canvas, store }) => {
+  const state = store.getState()
+
   const startRunLoop = createRunLoop({
     canvas,
     context: canvas.getContext('webgl'),
-    shader: getCurrentShader(store.getState()),
+    shader: getCurrentShader(state),
     store
   })
 

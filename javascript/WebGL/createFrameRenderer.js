@@ -30,7 +30,7 @@ export default ({ canvas, context, shader, program, store }) => function renderF
     const ASPECT_RATIO = window.innerWidth / window.innerHeight
 
     const uniformValues = assign({}, config, {
-      shader: SHADER_ENUM[currentShader],
+      shader: currentShader,
       center: [center.x, center.y],
       /* range.x is intentionally ignored in favor of setting */
       /* the window dimensions to dictate aspect ratio */

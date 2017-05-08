@@ -5,14 +5,12 @@ import createShader, * as Shader from 'reducers/createShader'
 import menuOpen from 'reducers/menuOpen'
 import ShaderReducers from 'reducers/shaderReducers'
 
-import mapValues from 'lodash/mapValues'
-
 export default combineReducers({
-  currentShader: createReducer('shader', 'julia set'),
+  currentShader: createReducer('current_shader', 0),
   menuOpen,
   pinchStart: createReducer('pinch_start', {}),
-  shadersSettings: combineReducers(mapValues(DEFAULT_STORE, (shaderConfig, shaderName) => (
-    createShader(shaderName, shaderConfig)
+  shadersSettings: combineReducers(DEFAULT_STORE.map((shaderConfig, shaderId) => (
+    createShader(shaderId, shaderConfig)
   ))),
   shaders: ShaderReducers
 })

@@ -1,5 +1,6 @@
 export default function registerEvent ({ category, action, label, value }) {
-  if (!category || !action) {
+  // TODO: change how categories work
+  if (!action) {
     throw new Error('GA requires category and action')
   }
 
