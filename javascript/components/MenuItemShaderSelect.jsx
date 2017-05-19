@@ -1,18 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import * as actions from 'actions'
-import { getCurrentShader } from 'reducers'
 import map from 'lodash/map'
 
-const mapStateToProps = (state) => ({
-  currentShader: getCurrentShader(state)
-})
+export default connect(() => ({}), actions)(
+  ({ currentShader, name, setCurrentShader, shaders }) => {
+    const options = map(shaders, shader => shader)
 
-export default connect(mapStateToProps, actions)(
-  ({ currentShader, name, options, setCurrentShader }) => {
-    const optionElements = map(options, name => (
-      <option key={name} value={name.toLowerCase()}>
-        {name}
+    const optionElements = options.map(option => (
+      <option key={option.name} value={option.name}>
+        {option.name}
       </option>
     ))
 
@@ -24,10 +21,14 @@ export default connect(mapStateToProps, actions)(
             className={`${name}-selector`}
             type='select'
             name={name}
-            value={currentShader}
-            onChange={event => setCurrentShader({
-              shader: parseInt(event.currentTarget.value)
-            })}>
+            value={shaders[currentShader] && shaders[currentShader].name}
+            onChange={event => {
+              const selectionOption = options[event.currentTarget.selectedIndex]
+
+              setCurrentShader({
+                shader: selectionOption.id
+              })
+            }}>
             {optionElements}
           </select>
         </div>

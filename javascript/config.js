@@ -138,9 +138,9 @@ export const DEFAULT_STORE = [
 ]
 
 export const SHADER_ENUM = {
-  'julia set': 0,
-  'mandelbrot set': 1,
-  'burning ship': 2,
-  'modified collatz': 3,
+  'Julia': 0,
+  'Mandelbrot': 1,
+  'Burning Ship': 2,
+  'Collatz': 3,
   'spinning cube': 4
 }

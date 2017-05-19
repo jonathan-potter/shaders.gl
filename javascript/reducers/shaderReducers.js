@@ -1,24 +1,25 @@
-export default (state = [], action) => {
+export default (state = {}, action) => {
+  const { shader } = action
+
   switch (action.type) {
     case 'ADD_SHADER':
-      return state.concat(action.shader)
-    case 'UPDATE_SHADER': {
-      const index = state.findIndex(shader => shader.id === action.shader.id)
+      return {
+        ...state,
+        [shader.id]: shader
+      }
+    case 'UPDATE_SHADER':
+      return {
+        ...state,
+        [shader.id]: shader
+      }
+    case 'DESTROY_SHADER':
+      const object = {
+        ...state
+      }
 
-      return [
-        ...state.slice(0, index),
-        action.shader,
-        ...state.slice(index + 1)
-      ]
-    }
-    case 'DESTROY_SHADER': {
-      const index = state.findIndex(shader => shader.id === action.shader.id)
+      delete object[shader.id]
 
-      return [
-        ...state.slice(0, index),
-        ...state.slice(index + 1)
-      ]
-    }
+      return object
     default:
       return state
   }

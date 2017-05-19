@@ -12,14 +12,15 @@ import cn from 'classnames'
 
 import './menu.scss'
 
-const mapStateToProps = ({ currentShader, menuOpen, shaderSettings }) => ({
+const mapStateToProps = ({ currentShader, menuOpen, shaderSettings, shaders }) => ({
   currentShader,
   menuOpen,
+  shaders,
   shaderSettings
 })
 
 export default connect(mapStateToProps, actions)(
-  ({ config, currentShader, menuOpen, resetShader, shaderSettings, zoomIn, zoomOut, zoomToLocation }) => {
+  ({ config, currentShader, menuOpen, resetShader, shaders, shaderSettings, zoomIn, zoomOut, zoomToLocation }) => {
     const { menuOrder: MENU_ORDER, controls: CONTROLS } = DEFAULT_MENU_CONFIG[currentShader]
 
     const controls = map(MENU_ORDER, (name) => {
@@ -54,7 +55,7 @@ export default connect(mapStateToProps, actions)(
               reset
             </button>
           </li>
-          <MenuItemShaderSelect name='shader' options={Object.keys(DEFAULT_MENU_CONFIG)} />
+          <MenuItemShaderSelect name='shader' currentShader={currentShader} shaders={shaders} />
           { controls }
         </ul>
       </menu>
