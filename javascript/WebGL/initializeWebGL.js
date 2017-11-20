@@ -1,5 +1,6 @@
+import configureProgram from 'webgl-utilities/configureProgram'
 import createFrameRenderer from 'webgl/createFrameRenderer'
-import programForShader from 'webgl-utilities/programForShader'
+import vertexShaderSource from 'shaders/vertexShader.glsl'
 
 const { requestAnimationFrame } = window
 
@@ -23,7 +24,7 @@ const createRunLoop = ({ canvas, context, shader, store, firstRun = true }) => (
   if (fragmentShaderSource && firstRun) {
     firstRun = false
 
-    const program = programForShader({ context, fragmentShaderSource, shader })
+    const program = configureProgram({ context, fragmentShaderSource, vertexShaderSource })
 
     context.useProgram(program)
     requestAnimationFrame(createFrameRenderer({ canvas, context, shader, program, store }))
