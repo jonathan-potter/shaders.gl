@@ -1,40 +1,26 @@
+import {
+  getFetch,
+  postFetch,
+  putFetch,
+  deleteFetch
+} from 'network/fetchWrapper'
+
 const BASE_URL = 'http://localhost:3000/shaders'
 
 export default {
   all () {
-    return fetch(BASE_URL)
-      .then(response => response.json())
+    return getFetch(BASE_URL)
   },
 
   create (element) {
-    return fetch(BASE_URL, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(element)
-    }).then(response => response.json())
+    return postFetch(BASE_URL, element)
   },
 
   update (element) {
-    return fetch(`${BASE_URL}/${element.id}`, {
-      method: 'PUT',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(element)
-    }).then(response => response.json())
+    return putFetch(`${BASE_URL}/${element.id}`, element)
   },
 
   destroy (id) {
-    return fetch(`${BASE_URL}/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
-    })
+    return deleteFetch(`${BASE_URL}/${id}`)
   }
 }

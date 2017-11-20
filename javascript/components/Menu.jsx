@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { DEFAULT_MENU_CONFIG } from 'javascript/config'
-import { getCurrentShader, getShaderConfig } from 'reducers'
 import MenuItemShaderSelect from 'components/MenuItemShaderSelect'
 import MenuRangeVariable from 'components/MenuRangeVariable'
 import MenuItemSelect from 'components/MenuItemSelect'
