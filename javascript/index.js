@@ -8,8 +8,6 @@ import { ShaderActions } from 'actions'
 
 const store = configureStore()
 
-window.store = store
-
 Shader.all().then(shaders => {
   shaders.forEach(shader => ShaderActions.add(shader)(store.dispatch))
 })
