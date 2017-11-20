@@ -1,6 +1,6 @@
 const ZOOM_SIZE = 0.95
 
-const { sign } = Math
+const { atan2, cos, sign, sin, sqrt } = Math
 
 const VIEWPORT_PROTOTYPE = {
   init ({ center, range, rotation }) {
@@ -51,33 +51,29 @@ const VIEWPORT_PROTOTYPE = {
     }
   },
 
-  zoomToLocation (location = this.center, delta = 1) {
+  zoomToLocation (center = this.center, delta = 1) {
     const newRange = { ...this.range }
+    const newCenter = { ...center }
 
     /* translate */
-    let dx = (this.center.x - location.x)
-    let dy = (this.center.y - location.y)
+    let dx = (this.center.x - center.x)
+    let dy = (this.center.y - center.y)
 
     /* rotate */
-    // const magnitude = sqrt(dx * dx + dy * dy)
-    // const angle = atan2(dy, dx)
-    //
-    // dx = magnitude * cos(angle - rotation)
-    // dy = magnitude * sin(angle - rotation)
-    //
-    /* scale */
-    // dx /= current.scale
-    // dy /= current.scale
+    const magnitude = sqrt(dx * dx + dy * dy)
+    const angle = atan2(dy, dx)
 
-    const newCenter = {
-      x: location.x + dx * ZOOM_SIZE,
-      y: location.y + dy * ZOOM_SIZE
-    }
+    dx = magnitude * cos(angle - this.rotation)
+    dy = magnitude * sin(angle - this.rotation)
 
     if (sign(delta) < 0) {
+      newCenter.x += dx * ZOOM_SIZE
+      newCenter.y += dy * ZOOM_SIZE
       newRange.x *= ZOOM_SIZE
       newRange.y *= ZOOM_SIZE
     } else if (sign(delta) > 0) {
+      newCenter.x += dx / ZOOM_SIZE
+      newCenter.y += dy / ZOOM_SIZE
       newRange.x /= ZOOM_SIZE
       newRange.y /= ZOOM_SIZE
     }

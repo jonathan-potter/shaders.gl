@@ -45,6 +45,7 @@
   "scripts": {
     "deploy": "source ./deploy.sh",
     "lint": "standard",
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server",
+    "mobile-test": "webpack-dev-server --host 192.168.0.156"
   }
 }
