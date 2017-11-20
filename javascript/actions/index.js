@@ -19,7 +19,7 @@ export const resetShader = () => (dispatch, getState) => {
   })
 }
 
-export const zoomToLocation = ({ location, shader }) => (dispatch, getState) => {
+export const zoomToLocation = ({ delta, location, shader }) => (dispatch, getState) => {
   const currentShader = getCurrentShader(getState())
   const action = 'ZOOM_TO_LOCATION'
 
@@ -31,7 +31,8 @@ export const zoomToLocation = ({ location, shader }) => (dispatch, getState) => 
   dispatch({
     type: action,
     shader: currentShader,
-    location
+    location,
+    delta
   })
 }
 

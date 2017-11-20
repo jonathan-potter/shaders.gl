@@ -12,6 +12,7 @@ class CanvasContainer extends Component {
     const canvas = document.getElementById('main')
 
     canvas.addEventListener('click', this.onClick.bind(this))
+    canvas.addEventListener('wheel', this.onWheel.bind(this))
     canvas.addEventListener('touchstart', this.onTouchStart.bind(this))
     canvas.addEventListener('touchmove', this.onTouchMove.bind(this))
     canvas.addEventListener('touchend', this.onTouchEnd.bind(this))
@@ -59,6 +60,21 @@ class CanvasContainer extends Component {
         x: event.offsetX / canvas.width,
         y: event.offsetY / canvas.height
       }
+    })
+  }
+
+  onWheel (event) {
+    const { deltaY, offsetX, offsetY } = event
+    const canvas = document.getElementById('main')
+
+    event.preventDefault()
+
+    this.props.zoomToLocation({
+      location: {
+        x: offsetX / canvas.width,
+        y: offsetY / canvas.height
+      },
+      delta: deltaY
     })
   }
 

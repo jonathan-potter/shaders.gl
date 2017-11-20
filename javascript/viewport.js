@@ -1,4 +1,6 @@
-const ZOOM_SIZE = 0.5
+const ZOOM_SIZE = 0.95
+
+const { sign } = Math
 
 const VIEWPORT_PROTOTYPE = {
   init ({ center, range, rotation }) {
@@ -49,14 +51,39 @@ const VIEWPORT_PROTOTYPE = {
     }
   },
 
-  zoomToLocation (location = this.center) {
-    const newRange = {
-      x: this.range.x * ZOOM_SIZE,
-      y: this.range.y * ZOOM_SIZE
+  zoomToLocation (location = this.center, delta = 1) {
+    const newRange = { ...this.range }
+
+    /* translate */
+    let dx = (this.center.x - location.x)
+    let dy = (this.center.y - location.y)
+
+    /* rotate */
+    // const magnitude = sqrt(dx * dx + dy * dy)
+    // const angle = atan2(dy, dx)
+    //
+    // dx = magnitude * cos(angle - rotation)
+    // dy = magnitude * sin(angle - rotation)
+    //
+    /* scale */
+    // dx /= current.scale
+    // dy /= current.scale
+
+    const newCenter = {
+      x: location.x + dx * ZOOM_SIZE,
+      y: location.y + dy * ZOOM_SIZE
+    }
+
+    if (sign(delta) < 0) {
+      newRange.x *= ZOOM_SIZE
+      newRange.y *= ZOOM_SIZE
+    } else if (sign(delta) > 0) {
+      newRange.x /= ZOOM_SIZE
+      newRange.y /= ZOOM_SIZE
     }
 
     return Viewport.create({
-      center: location,
+      center: newCenter,
       range: newRange,
       rotation: this.rotation
     })

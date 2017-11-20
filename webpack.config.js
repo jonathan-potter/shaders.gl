@@ -56,13 +56,6 @@ module.exports = {
     new ExtractTextPlugin({
       filename: 'build/style.css',
       allChunks: true
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      compress: {
-        warnings: false,
-        pure_funcs: ['console.log', 'window.console.log.apply']
-      }
     })
   ]
 }
