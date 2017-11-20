@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as actions from 'actions'
 
-const { PI: pi } = Math
+const { abs, PI: pi } = Math
 
 class CanvasContainer extends Component {
   componentDidMount () {
@@ -12,6 +12,7 @@ class CanvasContainer extends Component {
     const canvas = document.getElementById('main')
 
     canvas.addEventListener('click', this.onClick.bind(this))
+    canvas.addEventListener('wheel', this.onWheel.bind(this))
     canvas.addEventListener('touchstart', this.onTouchStart.bind(this))
     canvas.addEventListener('touchmove', this.onTouchMove.bind(this))
     canvas.addEventListener('touchend', this.onTouchEnd.bind(this))
@@ -54,11 +55,29 @@ class CanvasContainer extends Component {
   onClick (event) {
     const canvas = document.getElementById('main')
 
-    this.props.zoomToLocation({
+    this.props.zoomIn({
       location: {
         x: event.offsetX / canvas.width,
         y: event.offsetY / canvas.height
       }
+    })
+  }
+
+  onWheel (event) {
+    const { ctrlKey: pinchZoom, deltaY, offsetX, offsetY } = event
+    const canvas = document.getElementById('main')
+
+    event.preventDefault()
+
+    if (abs(deltaY) < 0.01) { return }
+
+    this.props.zoomToLocation({
+      location: {
+        x: offsetX / canvas.width,
+        y: offsetY / canvas.height
+      },
+      delta: deltaY,
+      pinchZoom
     })
   }
 

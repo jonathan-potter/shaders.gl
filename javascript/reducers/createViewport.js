@@ -69,12 +69,20 @@ export default function (SHADER, DEFAULT_VIEWPORT) {
           },
           rotation: rotation
         }
-      case 'ZOOM_TO_LOCATION':
-        const location = viewport.cartesianLocation(action.location)
+      case 'ZOOM_TO_LOCATION': {
+        const { delta, location, pinchZoom } = action
+        const center = viewport.cartesianLocation(location)
 
-        return viewport.zoomToLocation(location).serialize()
-      case 'ZOOM_OUT':
-        return viewport.zoomOut(location).serialize()
+        return viewport.zoomToLocation({ delta, center, pinchZoom }).serialize()
+      }
+      case 'ZOOM_IN': {
+        const center = viewport.cartesianLocation(action.location)
+        return viewport.zoomIn(center).serialize()
+      }
+      case 'ZOOM_OUT': {
+        const center = viewport.cartesianLocation(action.location)
+        return viewport.zoomOut(center).serialize()
+      }
       case 'ROTATE_VIEWPORT': {
         /* placed here for desktop debugging */
         return {

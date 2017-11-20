@@ -1,4 +1,8 @@
-const ZOOM_SIZE = 0.5
+const CLICK_ZOOM_SIZE = 0.5
+const SCROLL_ZOOM_SIZE = 0.95
+const PINCH_ZOOM_SIZE = 0.97
+
+const { atan2, cos, sign, sin, sqrt } = Math
 
 const VIEWPORT_PROTOTYPE = {
   init ({ center, range, rotation }) {
@@ -49,10 +53,45 @@ const VIEWPORT_PROTOTYPE = {
     }
   },
 
-  zoomToLocation (location = this.center) {
+  zoomToLocation ({ delta = 0, center = this.center, pinchZoom }) {
+    const newRange = { ...this.range }
+    const newCenter = { ...center }
+    const zoomSize = pinchZoom ? PINCH_ZOOM_SIZE : SCROLL_ZOOM_SIZE
+
+    /* translate */
+    let dx = (this.center.x - center.x)
+    let dy = (this.center.y - center.y)
+
+    /* rotate */
+    const magnitude = sqrt(dx * dx + dy * dy)
+    const angle = atan2(dy, dx)
+
+    dx = magnitude * cos(angle - this.rotation)
+    dy = magnitude * sin(angle - this.rotation)
+
+    if (sign(delta) < 0) {
+      newCenter.x += dx * zoomSize
+      newCenter.y += dy * zoomSize
+      newRange.x *= zoomSize
+      newRange.y *= zoomSize
+    } else if (sign(delta) > 0) {
+      newCenter.x += dx / zoomSize
+      newCenter.y += dy / zoomSize
+      newRange.x /= zoomSize
+      newRange.y /= zoomSize
+    }
+
+    return Viewport.create({
+      center: newCenter,
+      range: newRange,
+      rotation: this.rotation
+    })
+  },
+
+  zoomIn (location = this.center) {
     const newRange = {
-      x: this.range.x * ZOOM_SIZE,
-      y: this.range.y * ZOOM_SIZE
+      x: this.range.x * CLICK_ZOOM_SIZE,
+      y: this.range.y * CLICK_ZOOM_SIZE
     }
 
     return Viewport.create({
@@ -64,8 +103,8 @@ const VIEWPORT_PROTOTYPE = {
 
   zoomOut (location = this.center) {
     const newRange = {
-      x: this.range.x / ZOOM_SIZE,
-      y: this.range.y / ZOOM_SIZE
+      x: this.range.x / CLICK_ZOOM_SIZE,
+      y: this.range.y / CLICK_ZOOM_SIZE
     }
 
     return Viewport.create({
