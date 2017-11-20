@@ -19,7 +19,7 @@ const mapStateToProps = ({ currentShader, menuOpen, shaders }) => ({
 })
 
 export default connect(mapStateToProps, actions)(
-  ({ config, currentShader, menuOpen, resetShader, shaders, zoomOut, zoomToLocation }) => {
+  ({ config, currentShader, menuOpen, resetShader, shaders, zoomIn, zoomOut, zoomToLocation }) => {
     const { menuOrder: MENU_ORDER, controls: CONTROLS } = DEFAULT_MENU_CONFIG[currentShader]
 
     const controls = map(MENU_ORDER, (name) => {
@@ -45,7 +45,7 @@ export default connect(mapStateToProps, actions)(
             </button>
             <button
               className='reset-button button-primary'
-              onClick={zoomToLocation}>
+              onClick={zoomIn}>
               zoom in
             </button>
             <button

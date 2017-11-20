@@ -19,7 +19,7 @@ export const resetShader = () => (dispatch, getState) => {
   })
 }
 
-export const zoomToLocation = ({ delta, location, shader }) => (dispatch, getState) => {
+export const zoomToLocation = ({ delta, location, shader, pinchZoom }) => (dispatch, getState) => {
   const currentShader = getCurrentShader(getState())
   const action = 'ZOOM_TO_LOCATION'
 
@@ -32,11 +32,28 @@ export const zoomToLocation = ({ delta, location, shader }) => (dispatch, getSta
     type: action,
     shader: currentShader,
     location,
-    delta
+    delta,
+    pinchZoom
   })
 }
 
-export const zoomOut = () => (dispatch, getState) => {
+export const zoomIn = ({ location }) => (dispatch, getState) => {
+  const currentShader = getCurrentShader(getState())
+  const action = 'ZOOM_IN'
+
+  registerEvent({
+    category: currentShader,
+    action: action
+  })
+
+  dispatch({
+    type: action,
+    shader: currentShader,
+    location
+  })
+}
+
+export const zoomOut = ({ location }) => (dispatch, getState) => {
   const currentShader = getCurrentShader(getState())
   const action = 'ZOOM_OUT'
 
@@ -47,7 +64,8 @@ export const zoomOut = () => (dispatch, getState) => {
 
   dispatch({
     type: action,
-    shader: currentShader
+    shader: currentShader,
+    location
   })
 }
 
