@@ -6,11 +6,15 @@ import * as actions from 'actions'
 const mapStateToProps = ({ shaders }) => ({ shaders })
 
 export default connect(mapStateToProps, actions)(
-  ({ shaders }) => (
-    <ul>
-      {Object.values(shaders).map(shader => <ListItem key={shader.id} shader={shader} />)}
-    </ul>
-  )
+  ({ match, setCurrentShader, shaders }) => {
+    setCurrentShader({ shader: match.params.shader_id || null })
+
+    return (
+      <ul>
+        {Object.values(shaders).map(shader => <ListItem key={shader.id} shader={shader} />)}
+      </ul>
+    )
+  }
 )
 
 function ListItem ({ shader }) {

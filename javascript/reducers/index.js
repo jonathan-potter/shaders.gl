@@ -6,7 +6,7 @@ import menuOpen from 'reducers/menuOpen'
 import ShaderReducers from 'reducers/shaderReducers'
 
 export default combineReducers({
-  currentShader: createReducer('current_shader', 1),
+  currentShader: createReducer('current_shader', null),
   menuOpen,
   pinchStart: createReducer('pinch_start', {}),
   shaderSettings: combineReducers(DEFAULT_STORE.map((shaderConfig, shaderId) => (

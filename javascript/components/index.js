@@ -5,7 +5,7 @@ import App from 'components/App'
 import ShaderList from 'components/ShaderList'
 
 export default function ({ store }) {
-  const something = ({ match }) => (
+  const AppWrapper = ({ match }) => (
     <App shaderId={match.params.shader_id} store={store} />
   )
 
@@ -14,7 +14,7 @@ export default function ({ store }) {
       <HashRouter>
         <div>
           <Route exact path='/' component={ShaderList} />
-          <Route path='/shader/:shader_id' component={something} />
+          <Route path='/shader/:shader_id' component={AppWrapper} />
         </div>
       </HashRouter>
     </Provider>

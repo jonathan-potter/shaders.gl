@@ -1,4 +1,4 @@
-import { getShaderConfig, getShaderViewport } from 'reducers'
+import { getCurrentShader, getShaderConfig, getShaderViewport } from 'reducers'
 import setUniformValue from 'webgl-utilities/setUniformValue'
 import msaaCoordinates from 'webgl-utilities/msaaCoordinates'
 import { advanceTime, getTime } from 'utility/time'
@@ -12,8 +12,11 @@ export default ({ canvas, context, shader, program, store }) => function renderF
   /* eslint-disable no-multi-spaces, key-spacing */
   const state = store.getState()
 
+  const currentShader = getCurrentShader(state)
   const { center, range, rotation } = getShaderViewport(state, shader)
 
+  if (shader !== currentShader) { return }
+console.log(shader)
   const time = getTime()
   const config = getShaderConfig(state, shader, time)
 
