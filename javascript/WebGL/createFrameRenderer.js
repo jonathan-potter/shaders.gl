@@ -16,7 +16,7 @@ export default ({ canvas, context, shader, program, store }) => function renderF
   const { center, range, rotation } = getShaderViewport(state, shader)
 
   if (shader !== currentShader) { return }
-console.log(shader)
+
   const time = getTime()
   const config = getShaderConfig(state, shader, time)
 

@@ -2,11 +2,14 @@ export default (state = {}, action) => {
   const { shader } = action
 
   switch (action.type) {
-    case 'ADD_SHADER':
+    case 'ADD_SHADER': {
+      shader.config = JSON.parse(shader.config)
+
       return {
         ...state,
         [shader.id]: shader
       }
+    }
     case 'UPDATE_SHADER':
       return {
         ...state,

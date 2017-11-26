@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { DEFAULT_MENU_CONFIG } from 'javascript/config'
+import { getCurrentShader, getShaderViewport, getPinchStart } from 'reducers'
 import MenuItemShaderSelect from 'components/MenuItemShaderSelect'
 import MenuRangeVariable from 'components/MenuRangeVariable'
 import MenuItemSelect from 'components/MenuItemSelect'
@@ -20,14 +20,19 @@ const mapStateToProps = ({ currentShader, menuOpen, shaderSettings, shaders }) =
 
 export default connect(mapStateToProps, actions)(
   ({ config, currentShader, menuOpen, resetShader, shaders, shaderSettings, zoomIn, zoomOut, zoomToLocation }) => {
-    const { menuOrder: MENU_ORDER, controls: CONTROLS } = DEFAULT_MENU_CONFIG[currentShader]
+    const shader = shaders[currentShader]
+
+    if (!shader) { return <div /> }
+
+    const { menuOrder: MENU_ORDER, controls: CONTROLS } = shader.config.menu
 
     const controls = map(MENU_ORDER, (name) => {
       const {options, type} = CONTROLS[name]
 
       switch (type) {
         case 'range':
-          return <MenuRangeVariable key={name} name={name} config={shaderSettings[currentShader].rangeSettings[name]} />
+          const config = shader.config.settings.rangeSettings[name]
+          return <MenuRangeVariable key={name} name={name} config={config} />
         case 'select':
           return <MenuItemSelect key={name} name={name} options={options} />
       }

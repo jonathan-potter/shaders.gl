@@ -16,7 +16,7 @@ export const resetShader = () => (dispatch, getState) => {
 
   dispatch({
     type: action,
-    shader: currentShader
+    shaderId: currentShader
   })
 }
 
@@ -31,7 +31,7 @@ export const zoomToLocation = ({ delta, location, shader, pinchZoom }) => (dispa
 
   dispatch({
     type: action,
-    shader: currentShader,
+    shaderId: currentShader,
     location,
     delta,
     pinchZoom
@@ -49,7 +49,7 @@ export const zoomIn = ({ location }) => (dispatch, getState) => {
 
   dispatch({
     type: action,
-    shader: currentShader,
+    shaderId: currentShader,
     location
   })
 }
@@ -65,7 +65,7 @@ export const zoomOut = ({ location }) => (dispatch, getState) => {
 
   dispatch({
     type: action,
-    shader: currentShader,
+    shaderId: currentShader,
     location
   })
 }
@@ -83,7 +83,7 @@ export const setConfigValue = ({ name, value }) => (dispatch, getState) => {
 
   dispatch({
     type: action,
-    shader: getCurrentShader(getState()),
+    shaderId: getCurrentShader(getState()),
     name,
     value
   })
@@ -101,7 +101,7 @@ export const setValue = ({ action, name, value }) => (dispatch, getState) => {
 
   dispatch({
     type: action,
-    shader: currentShader,
+    shaderId: currentShader,
     name,
     value
   })
@@ -170,7 +170,7 @@ export const pinchZoom = ({ center, rotation, scale }) => (dispatch, getState) =
 
     dispatch({
       type: action,
-      shader: currentShader,
+      shaderId: currentShader,
       pinchStart,
       pinchCurrent: {
         center,

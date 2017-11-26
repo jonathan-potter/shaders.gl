@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux'
 import createRangeSetting from 'reducers/createRangeSetting'
 import createSelectSetting from 'reducers/createSelectSetting'
-import createViewport from 'reducers/createViewport'
 import { sinusoid } from 'utility/math'
 
 import assign from 'lodash/assign'
@@ -15,17 +14,15 @@ export default function (SHADER, DEFAULT_PROPERTIES) {
 
     selectSettings: combineReducers(mapValues(DEFAULT_PROPERTIES.selectSettings, (value, name) => {
       return createSelectSetting(SHADER, name, value)
-    })),
-
-    viewport: createViewport(SHADER, DEFAULT_PROPERTIES.viewport)
+    }))
   })
 }
 
-export const getShaderViewport = (state, shader) => state.shaderSettings[shader].viewport
+export const getShaderMenuConfig = (state, shader) => state.shaders[shader].config.menu
 export const getShaderConfig = (state, shader, time) => {
   if (!state.shaders[shader]) { return {} }
 
-  const config = JSON.parse(state.shaders[shader].config)
+  const { config } = state.shaders[shader]
 
   return assign(
     {},
