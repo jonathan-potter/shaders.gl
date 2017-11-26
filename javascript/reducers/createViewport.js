@@ -23,13 +23,11 @@ export default function viewports (state = { defaults: {} }, action) {
       const viewport = state[shaderId]
       const updatedViewport = updateViewport({ action, viewport })
 
-      if (viewport === updatedViewport) {
-        return state
-      } else {
-        return {
-          ...state,
-          [shaderId]: updatedViewport
-        }
+      if (viewport === updatedViewport) { return state }
+
+      return {
+        ...state,
+        [shaderId]: updatedViewport
       }
   }
 }

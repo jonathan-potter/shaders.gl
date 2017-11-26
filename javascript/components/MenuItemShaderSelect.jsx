@@ -3,7 +3,12 @@ import { connect } from 'react-redux'
 import * as actions from 'actions'
 import map from 'lodash/map'
 
-export default connect(() => ({}), actions)(
+const mapStateToProps = ({ currentShader, shaders }) => ({
+  currentShader,
+  shaders
+})
+
+export default connect(mapStateToProps, actions)(
   ({ currentShader, name, setCurrentShader, shaders }) => {
     const options = map(shaders, shader => shader)
 

@@ -8,17 +8,17 @@ import forEach from 'lodash/forEach'
 
 const { requestAnimationFrame } = window
 
-export default ({ canvas, context, shader, program, store }) => function renderFrame () {
+export default ({ canvas, context, shaderId, program, store }) => function renderFrame () {
   /* eslint-disable no-multi-spaces, key-spacing */
   const state = store.getState()
 
   const currentShader = getCurrentShader(state)
-  const { center, range, rotation } = getShaderViewport(state, shader)
+  const { center, range, rotation } = getShaderViewport(state, shaderId)
 
-  if (shader !== currentShader) { return }
+  if (parseInt(shaderId) !== currentShader.id) { return }
 
   const time = getTime()
-  const config = getShaderConfig(state, shader, time)
+  const config = getShaderConfig(state, shaderId, time)
 
   if (config.speed) {
     advanceTime(parseFloat(config.speed) / 1000)
@@ -30,7 +30,7 @@ export default ({ canvas, context, shader, program, store }) => function renderF
   const ASPECT_RATIO = window.innerWidth / window.innerHeight
 
   const uniformValues = assign({}, config, {
-    shader,
+    shader: shaderId,
     center: [center.x, center.y],
     /* range.x is intentionally ignored in favor of setting */
     /* the window dimensions to dictate aspect ratio */

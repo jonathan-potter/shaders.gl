@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux'
-import createRangeSetting from 'reducers/createRangeSetting'
 import createSelectSetting from 'reducers/createSelectSetting'
 import { sinusoid } from 'utility/math'
 
@@ -8,10 +7,6 @@ import mapValues from 'lodash/mapValues'
 
 export default function (SHADER, DEFAULT_PROPERTIES) {
   return combineReducers({
-    rangeSettings: combineReducers(mapValues(DEFAULT_PROPERTIES.rangeSettings, (value, name) => {
-      return createRangeSetting(SHADER, name, value)
-    })),
-
     selectSettings: combineReducers(mapValues(DEFAULT_PROPERTIES.selectSettings, (value, name) => {
       return createSelectSetting(SHADER, name, value)
     }))

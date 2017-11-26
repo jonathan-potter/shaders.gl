@@ -8,7 +8,7 @@ export default ({ canvas, shaderId, store }) => {
   const startRunLoop = createRunLoop({
     canvas,
     context: canvas.getContext('webgl'),
-    shader: shaderId,
+    shaderId: shaderId,
     store
   })
 
@@ -17,9 +17,9 @@ export default ({ canvas, shaderId, store }) => {
   startRunLoop()
 }
 
-const createRunLoop = ({ canvas, context, shader, store, firstRun = true }) => () => {
+const createRunLoop = ({ canvas, context, shaderId, store, firstRun = true }) => () => {
   const state = store.getState()
-  const fragmentShaderSource = state.shaders[shader] && state.shaders[shader].code
+  const fragmentShaderSource = state.shaders[shaderId] && state.shaders[shaderId].code
 
   if (fragmentShaderSource && firstRun) {
     firstRun = false
@@ -27,6 +27,7 @@ const createRunLoop = ({ canvas, context, shader, store, firstRun = true }) => (
     const program = configureProgram({ context, fragmentShaderSource, vertexShaderSource })
 
     context.useProgram(program)
-    requestAnimationFrame(createFrameRenderer({ canvas, context, shader, program, store }))
+    const frameRenderer = createFrameRenderer({ canvas, context, shaderId, program, store })
+    requestAnimationFrame(frameRenderer)
   }
 }
