@@ -8,28 +8,39 @@ const DEFAULT_VIEWPORT = {
   rotation: 0
 }
 
-export default function viewports (state = {}, action) {
-  const { shaderId } = action
+export default function viewports (state = { defaults: {} }, action) {
+  switch (action.type) {
+    case 'ADD_SHADER':
+      return {
+        ...state,
+        defaults: {
+          [shaderId]: action.shader.config.settings.viewport
+        }
+      }
+    default:
+      const { shaderId } = action
 
-  const viewport = state[shaderId]
-  const updatedViewport = updateViewport({ action, viewport })
+      const viewport = state[shaderId]
+      const updatedViewport = updateViewport({ action, viewport })
 
-  if (viewport === updatedViewport) {
-    return state
-  } else {
-    return {
-      ...state,
-      [shaderId]: updatedViewport
-    }
+      if (viewport === updatedViewport) {
+        return state
+      } else {
+        return {
+          ...state,
+          [shaderId]: updatedViewport
+        }
+      }
   }
 }
 
 function updateViewport ({ action, viewport: state = DEFAULT_VIEWPORT }) {
+  const { shaderId } = action
   const viewport = Viewport.create(state)
 
   switch (action.type) {
     case 'RESET_SHADER_CONFIG':
-      return DEFAULT_VIEWPORT
+      return state.viewports.defaults[shaderId]
     case 'SET_VIEWPORT':
       return action.value
     case 'PINCH_ZOOM':
@@ -114,7 +125,11 @@ function updateViewport ({ action, viewport: state = DEFAULT_VIEWPORT }) {
   }
 }
 
-export const getShaderViewport = (state, shaderId) => state.viewports[shaderId] || DEFAULT_VIEWPORT
+export const getShaderViewport = (state, shaderId) => (
+  state.viewports[shaderId] ||
+  state.viewports.defaults[shaderId] ||
+  DEFAULT_VIEWPORT
+)
 
 function rotatePointAroundCenter ({ point, center, rotation }) {
   const dx = point.x - center.x

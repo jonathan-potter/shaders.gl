@@ -27,12 +27,13 @@ export default function configureStore () {
   }
 
   store.subscribe(throttle(() => {
-    const state = store.getState()
+    const { currentShader, shaders, viewports } = store.getState()
 
     saveState({
-      currentShader: state.currentShader,
-      shaderSettings: state.shaderSettings,
-      version: CURRENT_VERSION
+      currentShader,
+      shaders,
+      version: CURRENT_VERSION,
+      viewports
     })
   }, 1000))
 

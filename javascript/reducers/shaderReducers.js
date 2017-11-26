@@ -3,8 +3,6 @@ export default (state = {}, action) => {
 
   switch (action.type) {
     case 'ADD_SHADER': {
-      shader.config = JSON.parse(shader.config)
-
       return {
         ...state,
         [shader.id]: shader

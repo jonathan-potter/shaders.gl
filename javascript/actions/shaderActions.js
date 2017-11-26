@@ -2,7 +2,10 @@ export default {
   add: shader => dispatch => {
     dispatch({
       type: 'ADD_SHADER',
-      shader
+      shader: {
+        ...shader,
+        config: JSON.parse(shader.config)
+      }
     })
   },
 
