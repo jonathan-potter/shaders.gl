@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { getCurrentShader, getShaderRangeSettings } from 'reducers'
-import MenuItemShaderSelect from 'components/MenuItemShaderSelect'
 import MenuRangeVariable from 'components/MenuRangeVariable'
 import MenuItemSelect from 'components/MenuItemSelect'
 import MenuItemShareGroup from 'components/MenuItemShareGroup'
@@ -64,7 +63,6 @@ export default connect(mapStateToProps, actions)(
               reset
             </button>
           </li>
-          <MenuItemShaderSelect name='shader' />
           { controls }
         </ul>
       </menu>

@@ -70,9 +70,9 @@ export const zoomOut = ({ location }) => (dispatch, getState) => {
   })
 }
 
-export const setConfigValue = ({ name, value }) => (dispatch, getState) => {
+export const setSelectValue = ({ name, value }) => (dispatch, getState) => {
   const currentShader = getCurrentShader(getState())
-  const action = 'SET_CONFIG_VALUE'
+  const action = 'SET_SELECT_VALUE'
 
   throttledRegisterEvent({
     category: currentShader.id,

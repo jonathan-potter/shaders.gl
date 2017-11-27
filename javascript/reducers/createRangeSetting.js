@@ -11,7 +11,10 @@ export default function rangeSettings (state = { defaults: {} }, action) {
         ...state,
         defaults: {
           ...state.defaults,
-          [shader.id]: shader.config.settings.rangeSettings
+          [shader.id]: {
+            ...shader.config.settings.rangeSettings,
+            ...shader.config.settings.selectSettings
+          }
         }
       }
     }
@@ -34,14 +37,16 @@ export default function rangeSettings (state = { defaults: {} }, action) {
 
       if (rangeSettings === updatedRangeSetting) { return state }
 
+      const newRangeSetting = typeof updatedRangeSetting !== 'object' ? updatedRangeSetting : {
+        ...rangeSetting,
+        ...updatedRangeSetting
+      }
+
       return {
         ...state,
         [shaderId]: {
           ...rangeSettings,
-          [name]: {
-            ...rangeSetting,
-            ...updatedRangeSetting
-          }
+          [name]: newRangeSetting
         }
       }
     }
@@ -80,6 +85,9 @@ function updateRangeSettings ({ action, state = {} }) {
         frequency: action.value,
         phase: phaseForSmoothFrequencyChange({ f1, f2, phi1, t })
       }
+    case 'SET_SELECT_VALUE': {
+      return action.value
+    }
     default:
       return state
   }
