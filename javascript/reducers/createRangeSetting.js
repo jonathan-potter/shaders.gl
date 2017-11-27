@@ -60,11 +60,24 @@ function updateRangeSettings ({ action, state = {} }) {
         ...state,
         value: action.value
       }
-    case 'SET_CONFIG_ANIMATE':
-      return {
-        ...state,
-        animated: action.value
+    case 'SET_CONFIG_ANIMATE': {
+      const { totalTimePaused = 0, pausedTime = 0 } = state
+      const { value } = action
+
+      if (value) {
+        return {
+          ...state,
+          animated: value,
+          totalTimePaused: totalTimePaused + getTime() - pausedTime
+        }
+      } else {
+        return {
+          ...state,
+          animated: value,
+          pausedTime: getTime()
+        }
       }
+    }
     case 'SET_CONFIG_AMPLITUDE':
       return {
         ...state,
