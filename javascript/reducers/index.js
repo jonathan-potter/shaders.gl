@@ -17,7 +17,7 @@ export default combineReducers({
   viewports: ViewportReducer
 })
 
-export const getCurrentShader = ({ shaders, currentShaderId }) => shaders[currentShaderId] || { id: currentShaderId }
+export const getCurrentShader = ({ shaders, currentShaderId }) => shaders[currentShaderId]
 export const getShaderViewport = (state, shaderId) => Viewport.getShaderViewport(state, shaderId)
 export const getShaderRangeSettings = (state, shaderId) => RangeSettings.getShaderRangeSettings(state, shaderId)
 export const getPinchStart = state => state.pinchStart
