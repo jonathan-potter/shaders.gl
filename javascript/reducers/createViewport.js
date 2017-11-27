@@ -33,7 +33,7 @@ export default function viewports (state = { defaults: {} }, action) {
     default:
       const { shaderId } = action
 
-      const viewport = state[shaderId]
+      const viewport = getShaderViewport({ viewports: state }, shaderId)
       const updatedViewport = updateViewport({ action, state: viewport })
 
       if (viewport === updatedViewport) { return state }
