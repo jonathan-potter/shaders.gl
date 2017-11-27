@@ -1,4 +1,5 @@
 import Viewport from 'javascript/Viewport'
+import merge from 'lodash/merge'
 
 const { atan2, cos, PI: pi, sin, sqrt } = Math
 
@@ -10,18 +11,30 @@ const DEFAULT_VIEWPORT = {
 
 export default function viewports (state = { defaults: {} }, action) {
   switch (action.type) {
-    case 'ADD_SHADER':
+    case 'ADD_SHADER': {
+      const { shader } = action
+
       return {
         ...state,
         defaults: {
-          [shaderId]: action.shader.config.settings.viewport
+          ...state.defaults,
+          [shader.id]: shader.config.settings.viewport
         }
       }
+    }
+    case 'RESET_SHADER_CONFIG': {
+      const { shaderId } = action
+      const { ...rest } = state
+
+      delete rest[shaderId]
+
+      return rest
+    }
     default:
       const { shaderId } = action
 
       const viewport = state[shaderId]
-      const updatedViewport = updateViewport({ action, viewport })
+      const updatedViewport = updateViewport({ action, state: viewport })
 
       if (viewport === updatedViewport) { return state }
 
@@ -32,13 +45,10 @@ export default function viewports (state = { defaults: {} }, action) {
   }
 }
 
-function updateViewport ({ action, viewport: state = DEFAULT_VIEWPORT }) {
-  const { shaderId } = action
+function updateViewport ({ action, state = DEFAULT_VIEWPORT }) {
   const viewport = Viewport.create(state)
 
   switch (action.type) {
-    case 'RESET_SHADER_CONFIG':
-      return state.viewports.defaults[shaderId]
     case 'SET_VIEWPORT':
       return action.value
     case 'PINCH_ZOOM':
@@ -123,10 +133,10 @@ function updateViewport ({ action, viewport: state = DEFAULT_VIEWPORT }) {
   }
 }
 
-export const getShaderViewport = (state, shaderId) => (
-  state.viewports[shaderId] ||
-  state.viewports.defaults[shaderId] ||
-  DEFAULT_VIEWPORT
+export const getShaderViewport = (state, shaderId) => merge({},
+  DEFAULT_VIEWPORT,
+  state.viewports.defaults[shaderId],
+  state.viewports[shaderId]
 )
 
 function rotatePointAroundCenter ({ point, center, rotation }) {
