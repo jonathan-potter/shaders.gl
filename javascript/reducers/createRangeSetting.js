@@ -26,23 +26,29 @@ export default function rangeSettings (state = { defaults: {} }, action) {
     default: {
       const { name, shaderId } = action
 
-      const rangeSettings = state[shaderId]
-      const updatedRangeSettings = updateRangeSettings({ action, state: rangeSettings })
+      if (!shaderId || !name) { return state }
 
-      if (!shaderId || rangeSettings === updatedRangeSettings) { return state }
+      const rangeSettings = getShaderRangeSettings({ rangeSettings: state }, shaderId)
+      const rangeSetting = rangeSettings[name] || {}
+      const updatedRangeSetting = updateRangeSettings({ action, state: rangeSetting })
+
+      if (rangeSettings === updatedRangeSetting) { return state }
 
       return {
         ...state,
         [shaderId]: {
           ...rangeSettings,
-          [name]: updatedRangeSettings
+          [name]: {
+            ...rangeSetting,
+            ...updatedRangeSetting
+          }
         }
       }
     }
   }
 }
 
-function updateRangeSettings ({ action, rangeSettings: state = {} }) {
+function updateRangeSettings ({ action, state = {} }) {
   switch (action.type) {
     case 'SET_CONFIG_VALUE':
       return {
