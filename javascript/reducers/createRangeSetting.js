@@ -101,6 +101,9 @@ function updateRangeSettings ({ action, state = {} }) {
     case 'SET_SELECT_VALUE': {
       return action.value
     }
+    case 'SET_CONFIG_RESET': {
+      return undefined
+    }
     default:
       return state
   }

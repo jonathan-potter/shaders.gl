@@ -40,10 +40,18 @@ export default connect(() => ({}), actions)(({ config, name, setValue }) => {
     name
   })
 
+  const onClickReset = event => setValue({
+    action: 'SET_CONFIG_RESET',
+    name
+  })
+
   /* eslint-disable no-multi-spaces */
   return (
     <li className='menu-item menu-range-variable'>
-      <div className='menu-range-variable__name'>{name}</div>
+      <div>
+        <span className='menu-range-variable__name'>{name}</span>
+        <button onClick={onClickReset} className='menu-range-variable__reset'>reset</button>
+      </div>
       <ul>
         <li className='menu-range-variable__animate'>
           <label className='menu-range-variable__animate__label' htmlFor='animate'>animate</label>
