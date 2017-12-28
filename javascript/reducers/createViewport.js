@@ -139,6 +139,11 @@ export const getShaderViewport = (state, shaderId) => merge({},
   state.viewports[shaderId]
 )
 
+export const getDefaultShaderViewport = (state, shaderId) => merge({},
+  DEFAULT_VIEWPORT,
+  state.viewports.defaults[shaderId]
+)
+
 function rotatePointAroundCenter ({ point, center, rotation }) {
   const dx = point.x - center.x
   const dy = point.y - center.y

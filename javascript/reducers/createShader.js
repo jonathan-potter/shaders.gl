@@ -2,8 +2,8 @@ import { combineReducers } from 'redux'
 import createSelectSetting from 'reducers/createSelectSetting'
 import { sinusoid } from 'utility/math'
 
-import assign from 'lodash/assign'
 import mapValues from 'lodash/mapValues'
+const { assign } = Object
 
 export default function (SHADER, DEFAULT_PROPERTIES) {
   return combineReducers({

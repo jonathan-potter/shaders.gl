@@ -5,8 +5,9 @@ import ShaderReducers from 'reducers/shaderReducers'
 import ViewportReducer, * as Viewport from 'reducers/createViewport'
 import RangeSettingsReducer, * as RangeSettings from 'reducers/createRangeSetting'
 import { sinusoid } from 'utility/math'
-import assign from 'lodash/assign'
 import mapValues from 'lodash/mapValues'
+
+const { assign } = Object
 
 export default combineReducers({
   currentShaderId: createReducer('current_shader', null),
@@ -19,10 +20,18 @@ export default combineReducers({
 
 export const getCurrentShader = ({ shaders, currentShaderId }) => shaders[currentShaderId]
 export const getShaderViewport = (state, shaderId) => Viewport.getShaderViewport(state, shaderId)
+export const getDefaultShaderViewport = (state, shaderId) => Viewport.getDefaultShaderViewport(state, shaderId)
 export const getShaderRangeSettings = (state, shaderId) => RangeSettings.getShaderRangeSettings(state, shaderId)
 export const getPinchStart = state => state.pinchStart
 export const getShaderConfig = (state, shaderId, time) => {
   return mapValues(getShaderRangeSettings(state, shaderId), settings => {
+    if (typeof settings !== 'object') { return settings }
+
+    return sinusoid(assign({ time }, settings))
+  })
+}
+export const getDefaultShaderConfig = (state, shaderId, time) => {
+  return mapValues(RangeSettings.getDefaultRangeSettings(state, shaderId), settings => {
     if (typeof settings !== 'object') { return settings }
 
     return sinusoid(assign({ time }, settings))

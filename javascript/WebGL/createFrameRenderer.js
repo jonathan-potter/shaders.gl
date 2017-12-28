@@ -1,11 +1,11 @@
-import { getCurrentShader, getShaderConfig, getShaderViewport } from 'reducers'
+import { getCurrentShader, getDefaultShaderConfig, getDefaultShaderViewport, getShaderConfig, getShaderViewport } from 'reducers'
 import setUniformValue from 'webgl-utilities/setUniformValue'
 import msaaCoordinates from 'webgl-utilities/msaaCoordinates'
 import { advanceTime, getTime } from 'utility/time'
 
-import assign from 'lodash/assign'
 import forEach from 'lodash/forEach'
 
+const { assign } = Object
 const { requestAnimationFrame } = window
 
 export default ({ canvas, context, shaderId, singleFrame, program, store, depth = 0 }) => function renderFrame () {
@@ -13,7 +13,6 @@ export default ({ canvas, context, shaderId, singleFrame, program, store, depth 
   const state = store.getState()
 
   const currentShader = getCurrentShader(state)
-  const { center, range, rotation } = getShaderViewport(state, shaderId)
 
   /* for a single frame to appear two frames are required */
   const single = singleFrame && depth++ < 2
@@ -22,7 +21,11 @@ export default ({ canvas, context, shaderId, singleFrame, program, store, depth 
   if (!single && !idMatch) { return }
 
   const time = getTime(shaderId)
-  const config = getShaderConfig(state, shaderId, time)
+  /* return default config values for single frame rendering */
+  const { center, range, rotation } = singleFrame ? getDefaultShaderViewport(state, shaderId) : getShaderViewport(state, shaderId)
+  const config = singleFrame ? getDefaultShaderConfig(state, shaderId) : getShaderConfig(state, shaderId, time)
+  const width = singleFrame ? canvas.offsetWidth : window.innerWidth
+  const height = singleFrame ? canvas.offsetHeight : window.innerHeight
 
   if (config.speed) {
     advanceTime(shaderId, parseFloat(config.speed) / 1000)
@@ -30,9 +33,6 @@ export default ({ canvas, context, shaderId, singleFrame, program, store, depth 
     /* only here for spinning cube */
     advanceTime(shaderId, 0.016)
   }
-
-  const width = singleFrame ? canvas.offsetWidth : window.innerWidth
-  const height = singleFrame ? canvas.offsetHeight : window.innerHeight
 
   const aspectRatio = width / height
 

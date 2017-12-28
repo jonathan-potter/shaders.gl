@@ -74,7 +74,7 @@ function updateRangeSettings ({ action, state = {} }) {
         return {
           ...state,
           animated: value,
-          pausedTime: getTime()
+          pausedTime: getTime(action.shaderId)
         }
       }
     }
@@ -91,7 +91,7 @@ function updateRangeSettings ({ action, state = {} }) {
     case 'SET_CONFIG_FREQUENCY':
       const { frequency: f1, phase: phi1 } = state
       const f2 = action.value
-      const t = getTime()
+      const t = getTime(action.shaderId)
 
       return {
         ...state,
@@ -114,4 +114,8 @@ export const getShaderRangeSettings = (state, shaderId) => (
     state.rangeSettings.defaults[shaderId],
     state.rangeSettings[shaderId]
   )
+)
+
+export const getDefaultRangeSettings = (state, shaderId) => (
+  state.rangeSettings.defaults[shaderId]
 )
