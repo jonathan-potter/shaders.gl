@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import * as actions from 'actions'
-import classnames from 'classnames'
+import cn from 'classnames'
 
 import './Header.scss'
 
@@ -50,14 +50,10 @@ const NavGroup = () => (
   </nav>
 )
 
-const NavGroupLink = ({ href, iconClass, title }) => {
-  const className = classnames('header-icon', iconClass)
-
-  return (
-    <li>
-      <a className='header-block-button' href={href} title={title}>
-        <i className={className} />
-      </a>
-    </li>
-  )
-}
+const NavGroupLink = ({ href, iconClass, title }) => (
+  <li>
+    <a className='header-block-button' href={href} title={title}>
+      <i className={cn('header-icon', iconClass)} />
+    </a>
+  </li>
+)

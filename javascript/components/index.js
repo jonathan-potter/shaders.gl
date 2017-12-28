@@ -1,5 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, HashRouter } from 'react-router-dom'
+import Header from 'components/Header'
 import { Provider } from 'react-redux'
 import App from 'components/App'
 import ShaderList from 'components/ShaderList'
@@ -11,12 +12,15 @@ export default function ({ store }) {
 
   return (
     <Provider store={store}>
-      <HashRouter>
-        <div>
-          <Route exact path='/' component={ShaderList} />
-          <Route path='/shader/:shader_id' component={AppWrapper} />
-        </div>
-      </HashRouter>
+      <div>
+        <Header />
+        <HashRouter>
+          <div>
+            <Route exact path='/' component={ShaderList} />
+            <Route path='/shader/:shader_id' component={AppWrapper} />
+          </div>
+        </HashRouter>
+      </div>
     </Provider>
   )
 }

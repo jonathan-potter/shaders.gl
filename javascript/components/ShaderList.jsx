@@ -9,10 +9,11 @@ const mapStateToProps = ({ shaders }) => ({ shaders })
 
 export default connect(mapStateToProps, actions)(
   ({ match, setCurrentShader, shaders }) => {
+    // this is causing a setState() warning fyi
     setCurrentShader({ shader: match.params.shader_id || null })
 
     return (
-      <ul className='shader-list'>
+      <ul className='container shader-list'>
         {Object.values(shaders).map(shader => <ListItem key={shader.id} shader={shader} />)}
       </ul>
     )
