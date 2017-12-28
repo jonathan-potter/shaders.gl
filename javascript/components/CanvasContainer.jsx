@@ -9,7 +9,7 @@ class CanvasContainer extends Component {
   componentDidMount () {
     const { shaderId, store } = this.props
     /* React onClick's SyntheticEvent does not contain all required properties */
-    const canvas = document.getElementById('main')
+    const canvas = this.refs.canvas
 
     canvas.addEventListener('click', this.onClick.bind(this))
     canvas.addEventListener('wheel', this.onWheel.bind(this))
@@ -55,7 +55,7 @@ class CanvasContainer extends Component {
   }
 
   onClick (event) {
-    const canvas = document.getElementById('main')
+    const canvas = this.refs.canvas
 
     this.props.zoomIn({
       location: {
@@ -67,7 +67,7 @@ class CanvasContainer extends Component {
 
   onWheel (event) {
     const { ctrlKey: pinchZoom, deltaY, offsetX, offsetY } = event
-    const canvas = document.getElementById('main')
+    const canvas = this.refs.canvas
 
     event.preventDefault()
 
@@ -84,7 +84,7 @@ class CanvasContainer extends Component {
   }
 
   render () {
-    return <canvas id='main' />
+    return <canvas ref='canvas' />
   }
 }
 

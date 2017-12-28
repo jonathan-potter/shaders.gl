@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import * as actions from 'actions'
 
+import './ShaderList.scss'
+
 const mapStateToProps = ({ shaders }) => ({ shaders })
 
 export default connect(mapStateToProps, actions)(
@@ -10,7 +12,7 @@ export default connect(mapStateToProps, actions)(
     setCurrentShader({ shader: match.params.shader_id || null })
 
     return (
-      <ul>
+      <ul className='shader-list'>
         {Object.values(shaders).map(shader => <ListItem key={shader.id} shader={shader} />)}
       </ul>
     )
@@ -19,8 +21,11 @@ export default connect(mapStateToProps, actions)(
 
 function ListItem ({ shader }) {
   return (
-    <li>
-      <Link to={`/shader/${shader.id}`}>{shader.name}</Link>
-    </li>
+    <Link className='shader-card' to={`/shader/${shader.id}`}>
+      <canvas className='shader-card__canvas' />
+      <div className='shader-card__hero'>
+        <span className='shader-card__title'>{shader.name}</span>
+      </div>
+    </Link>
   )
 }

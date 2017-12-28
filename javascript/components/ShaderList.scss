@@ -1,0 +1,32 @@
+.shader-list {
+  display: flex;
+  justify-content: center;
+}
+
+.shader-card {
+  display: flex;
+  flex-direction: column;
+
+  width: 300px;
+  height: 300px;
+
+  border: 1px solid white;
+  margin: 20px;
+
+  text-decoration: none;
+
+  &__canvas {
+    flex-grow: 2;
+  }
+
+  &__hero {
+    flex-grow: 1;
+    padding: 10px;
+    background: white;
+    color: black;
+  }
+
+  &__title {
+
+  }
+}
