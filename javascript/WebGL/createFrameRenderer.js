@@ -8,14 +8,18 @@ import forEach from 'lodash/forEach'
 
 const { requestAnimationFrame } = window
 
-export default ({ canvas, context, shaderId, singleFrame, program, store }) => function renderFrame (depth = 0) {
+export default ({ canvas, context, shaderId, singleFrame, program, store, depth = 0 }) => function renderFrame () {
   /* eslint-disable no-multi-spaces, key-spacing */
   const state = store.getState()
 
   const currentShader = getCurrentShader(state)
   const { center, range, rotation } = getShaderViewport(state, shaderId)
 
-  if (!singleFrame && parseInt(shaderId) !== currentShader.id) { return }
+  /* for a single frame to appear two frames are required */
+  const single = singleFrame && depth++ < 2
+  const idMatch = currentShader && parseInt(shaderId) === currentShader.id
+
+  if (!single && !idMatch) { return }
 
   const time = getTime(shaderId)
   const config = getShaderConfig(state, shaderId, time)
@@ -58,10 +62,7 @@ export default ({ canvas, context, shaderId, singleFrame, program, store }) => f
 
   resize({ canvas, context, height, singleFrame, width })
 
-  // if (depth === 0 || !singleFrame) {
   requestAnimationFrame(renderFrame)
-  depth++
-  // }
   /* eslint-enable no-multi-spaces, key-spacing */
 }
 
