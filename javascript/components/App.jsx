@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as actions from 'actions'
 import Menu from 'components/Menu'
@@ -9,14 +9,22 @@ import 'assets/skeleton/normalize.css'
 import './App.scss'
 
 export default connect(() => ({}), actions)(
-  ({ shaderId, setCurrentShader, store }) => {
-    setCurrentShader({ shader: shaderId })
+  class App extends Component {
+    componentDidMount () {
+      const { shaderId, setCurrentShader } = this.props
 
-    return (
-      <div>
-        <Menu />
-        <CanvasContainer store={store} shaderId={shaderId} />
-      </div>
-    )
+      setCurrentShader({ shader: shaderId })
+    }
+
+    render () {
+      const { shaderId, store } = this.props
+
+      return (
+        <div>
+          <Menu />
+          <CanvasContainer store={store} shaderId={shaderId} />
+        </div>
+      )
+    }
   }
 )

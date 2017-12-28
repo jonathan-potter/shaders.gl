@@ -4,11 +4,12 @@ import vertexShaderSource from 'shaders/vertexShader.glsl'
 
 const { requestAnimationFrame } = window
 
-export default ({ canvas, shaderId, store }) => {
+export default ({ canvas, shaderId, singleFrame, store }) => {
   const startRunLoop = createRunLoop({
     canvas,
     context: canvas.getContext('webgl'),
     shaderId: shaderId,
+    singleFrame,
     store
   })
 
@@ -17,7 +18,7 @@ export default ({ canvas, shaderId, store }) => {
   startRunLoop()
 }
 
-const createRunLoop = ({ canvas, context, shaderId, store, firstRun = true }) => () => {
+const createRunLoop = ({ canvas, context, shaderId, singleFrame, store, firstRun = true }) => () => {
   const state = store.getState()
   const fragmentShaderSource = state.shaders[shaderId] && state.shaders[shaderId].code
 
@@ -27,7 +28,7 @@ const createRunLoop = ({ canvas, context, shaderId, store, firstRun = true }) =>
     const program = configureProgram({ context, fragmentShaderSource, vertexShaderSource })
 
     context.useProgram(program)
-    const frameRenderer = createFrameRenderer({ canvas, context, shaderId, program, store })
+    const frameRenderer = createFrameRenderer({ canvas, context, shaderId, singleFrame, program, store })
     requestAnimationFrame(frameRenderer)
   }
 }

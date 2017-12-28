@@ -1,5 +1,8 @@
-let time = 0
+let times = {}
 
-export function advanceTime (seconds) { return time += seconds }
+export function advanceTime (name, seconds) {
+  times[name] = times[name] || 0
+  times[name] += seconds
+}
 
-export function getTime () { return time }
+export function getTime (name) { return times[name] || 0 }

@@ -68,7 +68,7 @@ function updateRangeSettings ({ action, state = {} }) {
         return {
           ...state,
           animated: value,
-          totalTimePaused: totalTimePaused + getTime() - pausedTime
+          totalTimePaused: totalTimePaused + getTime(action.shaderId) - pausedTime
         }
       } else {
         return {
