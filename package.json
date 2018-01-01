@@ -13,6 +13,7 @@
   },
   "homepage": null,
   "dependencies": {
+    "babel-preset-env": "^1.6.1",
     "classnames": "^2.2.5",
     "lodash": "^4.13.1",
     "react": "^15.3.1",
