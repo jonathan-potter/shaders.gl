@@ -1,3 +1,4 @@
+import ShaderActions from 'actions/ShaderActions'
 import { getCurrentShader, getShaderViewport, getPinchStart } from 'reducers'
 import registerEvent from 'utility/registerEvent'
 import throttle from 'lodash/throttle'
@@ -9,13 +10,13 @@ export const resetShader = () => (dispatch, getState) => {
   const action = 'RESET_SHADER_CONFIG'
 
   registerEvent({
-    category: currentShader,
+    category: currentShader.id,
     action: action
   })
 
   dispatch({
     type: action,
-    shader: currentShader
+    shaderId: currentShader.id
   })
 }
 
@@ -24,13 +25,13 @@ export const zoomToLocation = ({ delta, location, shader, pinchZoom }) => (dispa
   const action = 'ZOOM_TO_LOCATION'
 
   registerEvent({
-    category: currentShader,
+    category: currentShader.id,
     action: action
   })
 
   dispatch({
     type: action,
-    shader: currentShader,
+    shaderId: currentShader.id,
     location,
     delta,
     pinchZoom
@@ -42,13 +43,13 @@ export const zoomIn = ({ location }) => (dispatch, getState) => {
   const action = 'ZOOM_IN'
 
   registerEvent({
-    category: currentShader,
+    category: currentShader.id,
     action: action
   })
 
   dispatch({
     type: action,
-    shader: currentShader,
+    shaderId: currentShader.id,
     location
   })
 }
@@ -58,23 +59,23 @@ export const zoomOut = ({ location }) => (dispatch, getState) => {
   const action = 'ZOOM_OUT'
 
   registerEvent({
-    category: currentShader,
+    category: currentShader.id,
     action: action
   })
 
   dispatch({
     type: action,
-    shader: currentShader,
+    shaderId: currentShader.id,
     location
   })
 }
 
-export const setConfigValue = ({ name, value }) => (dispatch, getState) => {
+export const setSelectValue = ({ name, value }) => (dispatch, getState) => {
   const currentShader = getCurrentShader(getState())
-  const action = 'SET_CONFIG_VALUE'
+  const action = 'SET_SELECT_VALUE'
 
   throttledRegisterEvent({
-    category: currentShader,
+    category: currentShader.id,
     action: action,
     label: name,
     value
@@ -82,7 +83,7 @@ export const setConfigValue = ({ name, value }) => (dispatch, getState) => {
 
   dispatch({
     type: action,
-    shader: getCurrentShader(getState()),
+    shaderId: currentShader.id,
     name,
     value
   })
@@ -92,7 +93,7 @@ export const setValue = ({ action, name, value }) => (dispatch, getState) => {
   const currentShader = getCurrentShader(getState())
 
   throttledRegisterEvent({
-    category: currentShader,
+    category: currentShader.id,
     action,
     label: name,
     value
@@ -100,18 +101,17 @@ export const setValue = ({ action, name, value }) => (dispatch, getState) => {
 
   dispatch({
     type: action,
-    shader: getCurrentShader(getState()),
+    shaderId: currentShader.id,
     name,
     value
   })
 }
 
 export const setCurrentShader = ({ shader }) => (dispatch, getState) => {
-  const currentShader = getCurrentShader(getState())
-  const action = 'SET_SHADER'
+  const action = 'SET_CURRENT_SHADER'
 
   throttledRegisterEvent({
-    category: currentShader,
+    category: shader,
     action: action,
     label: shader
   })
@@ -127,7 +127,7 @@ export const toggleMenu = () => (dispatch, getState) => {
   const action = 'TOGGLE_MENU'
 
   throttledRegisterEvent({
-    category: currentShader,
+    category: currentShader.id,
     action: action
   })
 
@@ -144,7 +144,7 @@ export const setPinchStart = ({ center }) => (dispatch, getState) => {
   const action = 'SET_PINCH_START'
 
   registerEvent({
-    category: currentShader,
+    category: currentShader.id,
     action: action
   })
 
@@ -169,7 +169,7 @@ export const pinchZoom = ({ center, rotation, scale }) => (dispatch, getState) =
 
     dispatch({
       type: action,
-      shader: currentShader,
+      shaderId: currentShader.id,
       pinchStart,
       pinchCurrent: {
         center,
@@ -185,3 +185,11 @@ export const resetPinchStart = () => (dispatch) => {
     type: 'RESET_PINCH_START'
   })
 }
+
+export const resetRenderContext = () => (dispatch) => {
+  dispatch({
+    type: 'RESET_RENDER_CONTEXT'
+  })
+}
+
+export { ShaderActions }

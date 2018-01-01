@@ -1,21 +1,23 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as actions from 'actions'
+import initializeWebGL from 'webgl/initializeWebGL'
 
 const { abs, PI: pi } = Math
 
 class CanvasContainer extends Component {
   componentDidMount () {
-    this.props.initializeWebGL()
-
+    const { shaderId, store } = this.props
     /* React onClick's SyntheticEvent does not contain all required properties */
-    const canvas = document.getElementById('main')
+    const canvas = this.refs.canvas
 
     canvas.addEventListener('click', this.onClick.bind(this))
     canvas.addEventListener('wheel', this.onWheel.bind(this))
     canvas.addEventListener('touchstart', this.onTouchStart.bind(this))
     canvas.addEventListener('touchmove', this.onTouchMove.bind(this))
     canvas.addEventListener('touchend', this.onTouchEnd.bind(this))
+
+    initializeWebGL({ canvas, shaderId, store })
   }
 
   onTouchMove (event) {
@@ -53,7 +55,7 @@ class CanvasContainer extends Component {
   }
 
   onClick (event) {
-    const canvas = document.getElementById('main')
+    const canvas = this.refs.canvas
 
     this.props.zoomIn({
       location: {
@@ -65,7 +67,7 @@ class CanvasContainer extends Component {
 
   onWheel (event) {
     const { ctrlKey: pinchZoom, deltaY, offsetX, offsetY } = event
-    const canvas = document.getElementById('main')
+    const canvas = this.refs.canvas
 
     event.preventDefault()
 
@@ -82,7 +84,7 @@ class CanvasContainer extends Component {
   }
 
   render () {
-    return <canvas id='main' />
+    return <canvas ref='canvas' />
   }
 }
 

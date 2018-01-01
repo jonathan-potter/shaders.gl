@@ -1,35 +1,40 @@
-import { getCurrentShader } from 'reducers'
+import configureProgram from 'webgl-utilities/configureProgram'
 import createFrameRenderer from 'webgl/createFrameRenderer'
-import programForShader from 'webgl-utilities/programForShader'
+import vertexShaderSource from 'shaders/vertexShader.glsl'
 
 const { requestAnimationFrame } = window
 
-export default ({ store }) => {
-  const canvas = document.getElementById('main')
+export default ({ canvas, shaderId, singleFrame, store }) => {
+  const context = canvas.getContext('webgl')
 
   const startRunLoop = createRunLoop({
     canvas,
-    context: canvas.getContext('webgl'),
-    shader: getCurrentShader(store.getState()),
+    context,
+    shaderId: shaderId,
+    singleFrame,
     store
   })
 
   store.subscribe(startRunLoop)
+  store.dispatch({
+    type: 'SET_RENDER_CONTEXT',
+    value: context
+  })
 
   startRunLoop()
 }
 
-const createRunLoop = ({ canvas, context, shader, store, firstRun = true }) => () => {
+const createRunLoop = ({ canvas, context, shaderId, singleFrame, store, firstRun = true }) => () => {
   const state = store.getState()
-  const currentShader = getCurrentShader(state)
+  const fragmentShaderSource = state.shaders[shaderId] && state.shaders[shaderId].code
 
-  if (shader !== currentShader || firstRun) {
-    shader = currentShader
+  if (fragmentShaderSource && firstRun) {
     firstRun = false
 
-    const program = programForShader({ context, shader })
+    const program = configureProgram({ context, fragmentShaderSource, vertexShaderSource })
 
     context.useProgram(program)
-    requestAnimationFrame(createFrameRenderer({ canvas, context, shader, program, store }))
+    const frameRenderer = createFrameRenderer({ canvas, context, shaderId, singleFrame, program, store })
+    requestAnimationFrame(frameRenderer)
   }
 }

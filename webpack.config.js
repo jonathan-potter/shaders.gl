@@ -22,6 +22,7 @@ module.exports = {
       components:        path.resolve(__dirname, 'javascript', 'components'),
       reducers:          path.resolve(__dirname, 'javascript', 'reducers'),
       utility:           path.resolve(__dirname, 'javascript', 'utility'),
+      network:           path.resolve(__dirname, 'javascript', 'network'),
 
       webgl:             path.resolve(__dirname, 'javascript', 'WebGL'),
       'webgl-utilities': path.resolve(__dirname, 'javascript', 'WebGL', 'utility')

@@ -6,11 +6,15 @@ import map from 'lodash/map'
 
 import './MenuItemSelect.scss'
 
-const mapStateToProps = (state) => ({
-  config: getShaderConfig(state, getCurrentShader(state))
-})
+const mapStateToProps = (state) => {
+  const currentShader = getCurrentShader(state)
 
-export default connect(mapStateToProps, actions)(({ config, name, options, setConfigValue }) => {
+  return {
+    config: getShaderConfig(state, currentShader.id)
+  }
+}
+
+export default connect(mapStateToProps, actions)(({ config, name, options, setSelectValue }) => {
   const optionElements = map(options, (name, key) => (
     <option key={key} value={key}>
       {name}
@@ -26,7 +30,7 @@ export default connect(mapStateToProps, actions)(({ config, name, options, setCo
           type='select'
           name={name}
           value={config[name]}
-          onChange={event => setConfigValue({
+          onChange={event => setSelectValue({
             value: event.currentTarget.value,
             name
           })}>

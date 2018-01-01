@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import * as actions from 'actions'
-import classnames from 'classnames'
+import cn from 'classnames'
 
 import './Header.scss'
 
@@ -24,7 +24,7 @@ const MenuGroup = connect(() => ({}), actions)(({ toggleMenu }) => {
         onClick={toggleMenu}>
         <i className='header-icon icon-menu' />
       </button>
-      <a className='header-block-button' href='https://jonathan-potter.github.io/webgl-shaders/'>
+      <a className='header-block-button' href='/'>
         WebGL Shaders
       </a>
     </heading>
@@ -50,14 +50,10 @@ const NavGroup = () => (
   </nav>
 )
 
-const NavGroupLink = ({ href, iconClass, title }) => {
-  const className = classnames('header-icon', iconClass)
-
-  return (
-    <li>
-      <a className='header-block-button' href={href} title={title}>
-        <i className={className} />
-      </a>
-    </li>
-  )
-}
+const NavGroupLink = ({ href, iconClass, title }) => (
+  <li>
+    <a className='header-block-button' href={href} title={title}>
+      <i className={cn('header-icon', iconClass)} />
+    </a>
+  </li>
+)

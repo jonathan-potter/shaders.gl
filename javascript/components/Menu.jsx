@@ -1,8 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { DEFAULT_MENU_CONFIG } from 'javascript/config'
-import { getCurrentShader, getShaderConfig } from 'reducers'
-import MenuItemShaderSelect from 'components/MenuItemShaderSelect'
+import { getCurrentShader, getShaderRangeSettings } from 'reducers'
 import MenuRangeVariable from 'components/MenuRangeVariable'
 import MenuItemSelect from 'components/MenuItemSelect'
 import MenuItemShareGroup from 'components/MenuItemShareGroup'
@@ -12,22 +10,33 @@ import cn from 'classnames'
 
 import './menu.scss'
 
-const mapStateToProps = ({ currentShader, menuOpen, shaders }) => ({
-  shaders,
-  currentShader,
-  menuOpen
-})
+const mapStateToProps = (state) => {
+  const { currentShaderId, menuOpen, shaders } = state
+
+  return {
+    menuOpen,
+    shaders,
+    shader: getCurrentShader(state),
+    rangeSettings: getShaderRangeSettings(state, currentShaderId)
+  }
+}
 
 export default connect(mapStateToProps, actions)(
-  ({ config, currentShader, menuOpen, resetShader, shaders, zoomIn, zoomOut, zoomToLocation }) => {
-    const { menuOrder: MENU_ORDER, controls: CONTROLS } = DEFAULT_MENU_CONFIG[currentShader]
+  ({ config, menuOpen, rangeSettings, resetShader, shader, shaders, zoomIn, zoomOut, zoomToLocation }) => {
+    if (!shader || !rangeSettings) { return <div /> }
 
-    const controls = map(MENU_ORDER, (name) => {
+    const { menuOrder: MENU_ORDER, controls: CONTROLS } = shader.config.menu
+
+    const controls = map(MENU_ORDER, name => {
       const {options, type} = CONTROLS[name]
 
       switch (type) {
         case 'range':
-          return <MenuRangeVariable key={name} name={name} config={shaders[currentShader].rangeSettings[name]} />
+          const rangeSetting = rangeSettings[name]
+
+          if (!rangeSetting) { return <div key={name} /> }
+
+          return <MenuRangeVariable key={name} name={name} config={rangeSetting} />
         case 'select':
           return <MenuItemSelect key={name} name={name} options={options} />
       }
@@ -54,7 +63,6 @@ export default connect(mapStateToProps, actions)(
               reset
             </button>
           </li>
-          <MenuItemShaderSelect name='shader' options={Object.keys(DEFAULT_MENU_CONFIG)} />
           { controls }
         </ul>
       </menu>
