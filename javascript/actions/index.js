@@ -186,4 +186,10 @@ export const resetPinchStart = () => (dispatch) => {
   })
 }
 
+export const resetRenderContext = () => (dispatch) => {
+  dispatch({
+    type: 'RESET_RENDER_CONTEXT'
+  })
+}
+
 export { ShaderActions }

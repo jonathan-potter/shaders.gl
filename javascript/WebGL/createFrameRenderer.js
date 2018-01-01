@@ -1,4 +1,4 @@
-import { getCurrentShader, getDefaultShaderConfig, getDefaultShaderViewport, getShaderConfig, getShaderViewport } from 'reducers'
+import { getRenderContext, getDefaultShaderConfig, getDefaultShaderViewport, getShaderConfig, getShaderViewport } from 'reducers'
 import setUniformValue from 'webgl-utilities/setUniformValue'
 import msaaCoordinates from 'webgl-utilities/msaaCoordinates'
 import { advanceTime, getTime } from 'utility/time'
@@ -12,11 +12,11 @@ export default ({ canvas, context, shaderId, singleFrame, program, store, depth 
   /* eslint-disable no-multi-spaces, key-spacing */
   const state = store.getState()
 
-  const currentShader = getCurrentShader(state)
+  const renderContext = getRenderContext(state)
 
   /* for a single frame to appear two frames are required */
   const single = singleFrame && depth++ < 2
-  const idMatch = currentShader && parseInt(shaderId) === currentShader.id
+  const idMatch = renderContext === context
 
   if (!single && !idMatch) { return }
 

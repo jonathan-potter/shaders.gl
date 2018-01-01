@@ -35,7 +35,7 @@ class ListItem extends Component {
     const { shader } = this.props
 
     return (
-      <Link className='shader-card' to={`/shader/${shader.id}`}>
+      <Link onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut} className='shader-card' to={`/shader/${shader.id}`}>
         <canvas width='300' height='200' ref='canvas' className='shader-card__canvas' />
         <div className='shader-card__hero'>
           <span className='shader-card__title'>{shader.name}</span>
@@ -43,4 +43,24 @@ class ListItem extends Component {
       </Link>
     )
   }
+
+  onMouseOver = () => {
+    console.log('mouseover')
+    const { shader, store } = this.props
+    const { canvas } = this.refs
+
+    initializeWebGL({
+      canvas,
+      shaderId: shader.id,
+      singleFrame: true,
+      store
+    })
+  }
+
+  onMouseOut = () => {
+    console.log('mouseout')
+    this.props.resetRenderContext()
+  }
 }
+
+connect(() => {}, actions)(ListItem)

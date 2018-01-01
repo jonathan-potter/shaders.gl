@@ -11,6 +11,7 @@ const { assign } = Object
 
 export default combineReducers({
   currentShaderId: createReducer('current_shader', null),
+  renderContext: createReducer('render_context', null),
   menuOpen,
   pinchStart: createReducer('pinch_start', {}),
   rangeSettings: RangeSettingsReducer,
@@ -19,6 +20,7 @@ export default combineReducers({
 })
 
 export const getCurrentShader = ({ shaders, currentShaderId }) => shaders[currentShaderId]
+export const getRenderContext = ({ renderContext }) => renderContext
 export const getShaderViewport = (state, shaderId) => Viewport.getShaderViewport(state, shaderId)
 export const getDefaultShaderViewport = (state, shaderId) => Viewport.getDefaultShaderViewport(state, shaderId)
 export const getShaderRangeSettings = (state, shaderId) => RangeSettings.getShaderRangeSettings(state, shaderId)

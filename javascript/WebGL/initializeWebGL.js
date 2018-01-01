@@ -5,15 +5,21 @@ import vertexShaderSource from 'shaders/vertexShader.glsl'
 const { requestAnimationFrame } = window
 
 export default ({ canvas, shaderId, singleFrame, store }) => {
+  const context = canvas.getContext('webgl')
+
   const startRunLoop = createRunLoop({
     canvas,
-    context: canvas.getContext('webgl'),
+    context,
     shaderId: shaderId,
     singleFrame,
     store
   })
 
   store.subscribe(startRunLoop)
+  store.dispatch({
+    type: 'SET_RENDER_CONTEXT',
+    value: context
+  })
 
   startRunLoop()
 }
