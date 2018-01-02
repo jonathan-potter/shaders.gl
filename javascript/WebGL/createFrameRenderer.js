@@ -1,4 +1,4 @@
-import { getRenderContext, getDefaultShaderConfig, getDefaultShaderViewport, getShaderConfig, getShaderViewport } from 'reducers'
+import { getRenderId, getDefaultShaderConfig, getDefaultShaderViewport, getShaderConfig, getShaderViewport } from 'reducers'
 import setUniformValue from 'webgl-utilities/setUniformValue'
 import msaaCoordinates from 'webgl-utilities/msaaCoordinates'
 import { advanceTime, getTime } from 'utility/time'
@@ -8,24 +8,24 @@ import forEach from 'lodash/forEach'
 const { assign } = Object
 const { requestAnimationFrame } = window
 
-export default ({ canvas, context, shaderId, singleFrame, program, store, depth = 0 }) => function renderFrame () {
+export default ({ canvas, context, renderId, shaderId, singleFrame, smallFrame, program, store, depth = 0 }) => function renderFrame () {
   /* eslint-disable no-multi-spaces, key-spacing */
   const state = store.getState()
 
-  const renderContext = getRenderContext(state)
+  const currentRenderId = getRenderId(state)
 
   /* for a single frame to appear two frames are required */
   const single = singleFrame && depth++ < 2
-  const idMatch = renderContext === context
+  const idMatch = currentRenderId === renderId
 
   if (!single && !idMatch) { return }
 
   const time = getTime(shaderId)
   /* return default config values for single frame rendering */
-  const { center, range, rotation } = singleFrame ? getDefaultShaderViewport(state, shaderId) : getShaderViewport(state, shaderId)
-  const config = singleFrame ? getDefaultShaderConfig(state, shaderId) : getShaderConfig(state, shaderId, time)
-  const width = singleFrame ? canvas.offsetWidth : window.innerWidth
-  const height = singleFrame ? canvas.offsetHeight : window.innerHeight
+  const { center, range, rotation } = smallFrame ? getDefaultShaderViewport(state, shaderId) : getShaderViewport(state, shaderId)
+  const config = smallFrame ? getDefaultShaderConfig(state, shaderId, time) : getShaderConfig(state, shaderId, time)
+  const width = smallFrame ? canvas.offsetWidth : window.innerWidth
+  const height = smallFrame ? canvas.offsetHeight : window.innerHeight
 
   if (config.speed) {
     advanceTime(shaderId, parseFloat(config.speed) / 1000)
@@ -60,13 +60,13 @@ export default ({ canvas, context, shaderId, singleFrame, program, store, depth 
 
   context.drawArrays(context.TRIANGLE_STRIP, 0, 4)
 
-  resize({ canvas, context, height, singleFrame, width })
+  resize({ canvas, context, height, width })
 
   requestAnimationFrame(renderFrame)
   /* eslint-enable no-multi-spaces, key-spacing */
 }
 
-function resize ({ canvas, context, height, singleFrame, width }) {
+function resize ({ canvas, context, height, width }) {
   /* http://webglfundamentals.org/webgl/lessons/webgl-resizing-the-canvas.html */
   if (canvas.width !== width || canvas.height !== height) {
     canvas.width = width

@@ -13,6 +13,7 @@ class ShaderListItem extends Component {
       canvas,
       shaderId: shader.id,
       singleFrame: true,
+      smallFrame: true,
       store
     })
   }
@@ -32,22 +33,19 @@ class ShaderListItem extends Component {
   }
 
   onMouseOver = () => {
-    console.log('mouseover')
-    console.log(actions)
     const { shader, store } = this.props
     const { canvas } = this.refs
 
     initializeWebGL({
       canvas,
       shaderId: shader.id,
-      singleFrame: true,
+      smallFrame: true,
       store
     })
   }
 
   onMouseOut = () => {
-    console.log('mouseout')
-    this.props.resetRenderContext()
+    this.props.resetRenderId()
   }
 }
 
