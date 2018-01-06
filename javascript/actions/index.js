@@ -186,9 +186,9 @@ export const resetPinchStart = () => (dispatch) => {
   })
 }
 
-export const resetRenderContext = () => (dispatch) => {
+export const resetRenderId = () => (dispatch) => {
   dispatch({
-    type: 'RESET_RENDER_CONTEXT'
+    type: 'RESET_RENDER_ID'
   })
 }
 
