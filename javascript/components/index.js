@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router, Route, HashRouter } from 'react-router-dom'
 import Header from 'components/Header'
 import { Provider } from 'react-redux'
-import App from 'components/App'
+import Shader from 'components/Shader'
 import ShaderList from 'components/ShaderList'
 
 export default ({ store }) => (
@@ -12,7 +12,7 @@ export default ({ store }) => (
       <HashRouter>
         <div>
           <Route exact path='/' component={wrap(ShaderList, store)} />
-          <Route path='/shader/:shader_id' component={wrap(App, store)} />
+          <Route path='/shader/:shader_id' component={wrap(Shader, store)} />
         </div>
       </HashRouter>
     </div>

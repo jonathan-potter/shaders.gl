@@ -6,10 +6,10 @@ import CanvasContainer from 'components/CanvasContainer'
 
 import 'assets/skeleton/skeleton.css'
 import 'assets/skeleton/normalize.css'
-import './App.scss'
+import './Shader.scss'
 
 export default connect(() => ({}), actions)(
-  class App extends Component {
+  class Shader extends Component {
     componentDidMount () {
       const { shaderId, setCurrentShader } = this.props
 
