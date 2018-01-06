@@ -24,8 +24,8 @@ export default ({ canvas, context, renderId, shaderId, singleFrame, smallFrame, 
   /* return default config values for single frame rendering */
   const { center, range, rotation } = smallFrame ? getDefaultShaderViewport(state, shaderId) : getShaderViewport(state, shaderId)
   const config = smallFrame ? getDefaultShaderConfig(state, shaderId, time) : getShaderConfig(state, shaderId, time)
-  const width = smallFrame ? canvas.offsetWidth : window.innerWidth
-  const height = smallFrame ? canvas.offsetHeight : window.innerHeight
+  const width = smallFrame ? canvas.offsetWidth * 2 : window.innerWidth
+  const height = smallFrame ? canvas.offsetHeight * 2 : window.innerHeight
 
   if (config.speed) {
     advanceTime(shaderId, parseFloat(config.speed) / 1000)

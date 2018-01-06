@@ -24,7 +24,7 @@ class ShaderListItem extends Component {
 
     return (
       <Link onMouseOver={this.onMouseOver.bind(this)} onMouseOut={this.onMouseOut.bind(this)} className='shader-card' to={`/shader/${shader.id}`}>
-        <canvas width='300' height='200' ref='canvas' className='shader-card__canvas' />
+        <canvas width='600' height='400' ref='canvas' className='shader-card__canvas' />
         <div className='shader-card__hero'>
           <span className='shader-card__title'>{shader.name}</span>
         </div>
