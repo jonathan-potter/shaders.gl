@@ -14,11 +14,11 @@ export default ({ canvas, context, renderId, shaderId, singleFrame, smallFrame, 
 
   const currentRenderId = getRenderId(state)
 
-  /* for a single frame to appear two frames are required */
-  const single = singleFrame && depth++ < 2
-  const idMatch = currentRenderId === renderId
+  /* reasons for stopping animation */
+  const afterSingleFrame = singleFrame && depth++ > 1 // for a single frame to appear two frames are required
+  const idMismatch = !singleFrame && currentRenderId !== renderId
 
-  if (!single && !idMatch) { return }
+  if (afterSingleFrame || idMismatch) { return }
 
   const time = getTime(shaderId)
   /* return default config values for single frame rendering */
